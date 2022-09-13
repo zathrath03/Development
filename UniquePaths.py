@@ -11,9 +11,9 @@ def MYuniquePaths(m: int, n: int) -> int:
         return uniquePaths
     if m == n:
         uniquePaths = 2 * cache.get((m-1,n), cache.get((m,n-1), 0))
-    if uniquePaths:
-        cache[(m,n)] = uniquePaths
-        return uniquePaths
+        if uniquePaths:
+            cache[(m,n)] = uniquePaths
+            return uniquePaths
     
     cache[(m,n)] = MYuniquePaths(m-1, n) + MYuniquePaths(m, n-1)
     return cache[(m,n)]
