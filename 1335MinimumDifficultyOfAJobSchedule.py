@@ -17,9 +17,8 @@ import unittest
 
 
 def minDifficulty(self, jobDifficulty: list[int], d: int) -> int:
-    # def find_max_window_difficulty_window():
-
     length = len(jobDifficulty)
+
     if d > length:
         return -1
     if d == length:
