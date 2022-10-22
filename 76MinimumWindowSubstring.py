@@ -15,6 +15,7 @@ s and t consist of uppercase and lowercase English letters.
 
 
 from collections import Counter
+from typing import Union
 import unittest
 
 
@@ -25,7 +26,12 @@ class Solution:
 
         # Find start of window
         lft = self.window_start(s, t_counts)
+        if lft is None:
+            return ""
         # Find end of window where all items in t are in the window
+        if (right_inc := self.window_end(s[lft:], t_counts)) is None:
+            return ""
+        rgt = lft + right_inc - 1
         # Save window indexes as a possibility
         # Shift the window
         # # repeat the window search above on a substring
@@ -35,11 +41,21 @@ class Solution:
         # Return the substring of the smallest length
         return ""
 
-    def window_start(self, s: str, counts: dict) -> int:
+    def window_start(self, s: str, counts: dict) -> Union[int, None]:
         for i, char in enumerate(s):
             if char in counts:
                 return i
-        # TODO what to return if there are no matching characters
+        return None
+
+    def window_end(self, s: str, counts: dict) -> Union[int, None]:
+        present: dict[str, int] = dict()
+
+        for i, char in enumerate(s):
+            if char in counts:
+                present[char] = present.get(char, 0) + 1
+                if present == counts:
+                    return i
+        return None
 
 
 class Test(unittest.TestCase):
