@@ -31,7 +31,7 @@ class Solution:
         # Find end of window where all items in t are in the window
         if (right_inc := self.window_end(s[lft:], t_counts)) is None:
             return ""
-        rgt = lft + right_inc - 1
+        rgt = lft + right_inc
         # Save window indexes as a possibility
         # Shift the window
         # # repeat the window search above on a substring
@@ -47,13 +47,13 @@ class Solution:
                 return i
         return None
 
-    def window_end(self, s: str, counts: dict) -> Union[int, None]:
-        present: dict[str, int] = dict()
+    def window_end(self, s: str, counts: Counter) -> Union[int, None]:
+        present = Counter()
 
         for i, char in enumerate(s):
             if char in counts:
                 present[char] = present.get(char, 0) + 1
-                if present == counts:
+                if present >= counts:
                     return i
         return None
 
