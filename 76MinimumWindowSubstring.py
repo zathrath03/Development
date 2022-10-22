@@ -43,9 +43,9 @@ class Solution:
             offset = lft + 1
         return possible_windows
 
-    def window_start(self, s: str, counts: Counter) -> Union[int, None]:
+    def window_start(self, s: str, chars: set) -> Union[int, None]:
         for i, char in enumerate(s):
-            if char in counts:
+            if char in chars:
                 return i
         return None
 
@@ -61,7 +61,7 @@ class Solution:
 
     def find_window(self, s: str, counts: Counter) -> Union[tuple[int, int],
                                                             None]:
-        lft = self.window_start(s, counts)
+        lft = self.window_start(s, set(counts))
         if lft is None:
             return None
         if (right_inc := self.window_end(s[lft:], counts)) is None:
