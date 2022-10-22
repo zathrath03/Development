@@ -30,16 +30,7 @@ class Solution:
             return ""
 
         possible_windows = []
-        # Find start of window
-        lft = self.window_start(s, t_counts)
-        if lft is None:
-            return ""
-        # Find end of window where all items in t are in the window
-        if (right_inc := self.window_end(s[lft:], t_counts)) is None:
-            return ""
-        rgt = lft + right_inc
-        # Save window indexes as a possibility
-        possible_windows.append((lft, rgt))
+        possible_windows.append(self.find_window(s, t_counts))
         # Shift the window
         # # repeat the window search above on a substring
         # # use the index after the current start as the start of the substring
@@ -65,6 +56,18 @@ class Solution:
                 if present >= counts:
                     return i
         return None
+
+    def find_window(self, s: str, counts: Counter) -> Union[tuple[int, int],
+                                                            None]:
+        # Find start of window
+        lft = self.window_start(s, counts)
+        if lft is None:
+            return None
+        # Find end of window where all items in t are in the window
+        if (right_inc := self.window_end(s[lft:], counts)) is None:
+            return None
+        rgt = lft + right_inc
+        return (lft, rgt)
 
 
 class Test(unittest.TestCase):
