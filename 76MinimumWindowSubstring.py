@@ -23,25 +23,25 @@ class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(s) < len(t):
             return ""
-        # Create a dict of char: count for the chars in t
         t_counts = Counter(t)
         s_counts = Counter(s)
         if t_counts > s_counts:
             return ""
 
-        possible_windows = []
-        if (window := self.find_window(s, t_counts)) is None:
-            return ""
-        possible_windows.append(window)
-        # Shift the window
-        # # repeat the window search above on a substring
-        # # use the index after the current start as the start of the substring
-        # Return "" if no window indexes saved
-        # Check the saved window indexes for the smallest length
-        # Return the substring of the smallest length
+        possible_windows = self.find_possible_windows(s, t_counts)
         smallest_wdw = min(possible_windows,
                            key=lambda wdw: wdw[1] - wdw[0], default=None)
         return s[smallest_wdw[0]: smallest_wdw[1]+1] if smallest_wdw else ""
+
+    def find_possible_windows(self, s, t_counts):
+        possible_windows = []
+        offset = 0
+        while (window := self.find_window(s[offset:], t_counts)) is not None:
+            lft = window[0] + offset
+            rgt = window[1] + offset
+            possible_windows.append((lft, rgt))
+            offset = lft + 1
+        return possible_windows
 
     def window_start(self, s: str, counts: Counter) -> Union[int, None]:
         for i, char in enumerate(s):
@@ -61,11 +61,9 @@ class Solution:
 
     def find_window(self, s: str, counts: Counter) -> Union[tuple[int, int],
                                                             None]:
-        # Find start of window
         lft = self.window_start(s, counts)
         if lft is None:
             return None
-        # Find end of window where all items in t are in the window
         if (right_inc := self.window_end(s[lft:], counts)) is None:
             return None
         rgt = lft + right_inc
