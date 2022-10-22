@@ -24,6 +24,7 @@ class Solution:
         t_counts = Counter(t)
 
         # Find start of window
+        lft = self.window_start(s, t_counts)
         # Find end of window where all items in t are in the window
         # Save window indexes as a possibility
         # Shift the window
@@ -32,6 +33,13 @@ class Solution:
         # Return "" if no window indexes saved
         # Check the saved window indexes for the smallest length
         # Return the substring of the smallest length
+        return ""
+
+    def window_start(self, s: str, counts: dict) -> int:
+        for i, char in enumerate(s):
+            if char in counts:
+                return i
+        # TODO what to return if there are no matching characters
 
 
 class Test(unittest.TestCase):
