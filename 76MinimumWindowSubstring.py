@@ -24,9 +24,6 @@ class Solution:
         if len(s) < len(t):
             return ""
         t_counts = Counter(t)
-        s_counts = Counter(s)
-        if t_counts > s_counts:
-            return ""
 
         possible_windows = self.find_possible_windows(s, t_counts)
         smallest_wdw = min(possible_windows,
