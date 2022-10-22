@@ -30,7 +30,9 @@ class Solution:
             return ""
 
         possible_windows = []
-        possible_windows.append(self.find_window(s, t_counts))
+        if (window := self.find_window(s, t_counts)) is None:
+            return ""
+        possible_windows.append(window)
         # Shift the window
         # # repeat the window search above on a substring
         # # use the index after the current start as the start of the substring
@@ -48,7 +50,7 @@ class Solution:
         return None
 
     def window_end(self, s: str, counts: Counter) -> Union[int, None]:
-        present = Counter()
+        present: Counter = Counter()
 
         for i, char in enumerate(s):
             if char in counts:
