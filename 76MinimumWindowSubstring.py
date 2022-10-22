@@ -46,7 +46,9 @@ class Solution:
         # Return "" if no window indexes saved
         # Check the saved window indexes for the smallest length
         # Return the substring of the smallest length
-        return ""
+        smallest_wdw = min(possible_windows,
+                           key=lambda wdw: wdw[1] - wdw[0], default=None)
+        return s[smallest_wdw[0]: smallest_wdw[1]+1] if smallest_wdw else ""
 
     def window_start(self, s: str, counts: dict) -> Union[int, None]:
         for i, char in enumerate(s):
