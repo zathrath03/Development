@@ -21,8 +21,13 @@ import unittest
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
+        if len(s) < len(t):
+            return ""
         # Create a dict of char: count for the chars in t
         t_counts = Counter(t)
+        s_counts = Counter(s)
+        if t_counts > s_counts:
+            return ""
 
         # Find start of window
         lft = self.window_start(s, t_counts)
