@@ -29,6 +29,7 @@ class Solution:
         if t_counts > s_counts:
             return ""
 
+        possible_windows = []
         # Find start of window
         lft = self.window_start(s, t_counts)
         if lft is None:
@@ -38,6 +39,7 @@ class Solution:
             return ""
         rgt = lft + right_inc
         # Save window indexes as a possibility
+        possible_windows.append((lft, rgt))
         # Shift the window
         # # repeat the window search above on a substring
         # # use the index after the current start as the start of the substring
