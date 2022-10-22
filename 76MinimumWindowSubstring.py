@@ -41,7 +41,7 @@ class Solution:
                            key=lambda wdw: wdw[1] - wdw[0], default=None)
         return s[smallest_wdw[0]: smallest_wdw[1]+1] if smallest_wdw else ""
 
-    def window_start(self, s: str, counts: dict) -> Union[int, None]:
+    def window_start(self, s: str, counts: Counter) -> Union[int, None]:
         for i, char in enumerate(s):
             if char in counts:
                 return i
