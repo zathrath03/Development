@@ -29,11 +29,17 @@ class Solution:
             n = len(substring)
             for j, char in enumerate(substring):
                 if char in hmap:
-                    pass  # TODO
+                    if n > hmap[char][1]:
+                        self.remove(arr[hmap[char][0]], hmap)
+                    else:
+                        self.remove(substring[:j], hmap)
                 else:
                     hmap[char] = (i, n)
 
         return len(hmap)
+
+    def remove(self, substring: str, hmap: dict) -> None:
+        pass
 
 
 class Test(unittest.TestCase):
