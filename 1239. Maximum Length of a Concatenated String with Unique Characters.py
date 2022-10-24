@@ -19,20 +19,16 @@ import unittest
 
 class Solution:
     def maxLength(self, arr: list[str]) -> int:
+        substrings = [""]
+        longest = 0
 
-        def recur_max_length(arr: list[str], idx: int, result: str) -> int:
-            if len(result) != len(set(result)):
-                return 0
-
-            longest = len(result)
-            for i in range(idx, len(arr)):
-                longest = max(longest, recur_max_length(
-                    arr, i+1, result + arr[i]))
-            return longest
-
-        idx = 0
-        result = ""
-        return recur_max_length(arr, idx, result)
+        for substring in arr:
+            for i in range(len(substrings)):
+                new_substring = substring + substrings[i]
+                if len(new_substring) == len(set(new_substring)):
+                    substrings.append(new_substring)
+                    longest = max(longest, len(new_substring))
+        return longest
 
 
 class Test(unittest.TestCase):
