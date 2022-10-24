@@ -19,12 +19,7 @@ import unittest
 
 class Solution:
     def maxLength(self, arr: list[str]) -> int:
-        hmap = dict()
-        # store each character from each substring in a dictionary
-        # key is the char, value is (index of substring, length of substring)
-        # if the char is already in the dictionary, compare the lengths
-        # # remove the substring that is shorter
-        # return the length of the dictionary
+        hmap: dict[str, tuple[int, int]] = dict()
         for i, substring in enumerate(arr):
             n = len(substring)
             for j, char in enumerate(substring):
@@ -39,7 +34,8 @@ class Solution:
         return len(hmap)
 
     def remove(self, substring: str, hmap: dict) -> None:
-        pass
+        for char in substring:
+            del hmap[char]
 
 
 class Test(unittest.TestCase):
