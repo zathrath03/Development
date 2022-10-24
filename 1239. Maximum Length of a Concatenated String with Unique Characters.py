@@ -14,6 +14,26 @@ arr[i] contains only lowercase English letters.
 """
 
 
+import unittest
+
+
 class Solution:
     def maxLength(self, arr: list[str]) -> int:
         pass
+
+
+class Test(unittest.TestCase):
+    test_cases = [
+        (["un", "iq", "ue"], 4),
+        (["cha", "r", "act", "ers"], 6),
+        (["abcdefghijklmnopqrstuvwxyz"], 26)
+    ]
+
+    def test_maxLength(self):
+        sol = Solution()
+        for test, expected in self.test_cases:
+            assert sol.maxLength(test) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
