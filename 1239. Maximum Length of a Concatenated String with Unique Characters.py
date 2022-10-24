@@ -19,23 +19,20 @@ import unittest
 
 class Solution:
     def maxLength(self, arr: list[str]) -> int:
-        hmap: dict[str, tuple[int, int]] = dict()
-        for i, substring in enumerate(arr):
-            n = len(substring)
-            for j, char in enumerate(substring):
-                if char in hmap:
-                    if n > hmap[char][1]:
-                        self.remove(arr[hmap[char][0]], hmap)
-                    else:
-                        self.remove(substring[:j], hmap)
-                        break
-                hmap[char] = (i, n)
 
-        return len(hmap)
+        def recur_max_length(arr: list[str], idx: int, result: str) -> int:
+            if len(result) != len(set(result)):
+                return 0
 
-    def remove(self, substring: str, hmap: dict) -> None:
-        for char in substring:
-            del hmap[char]
+            longest = len(result)
+            for i in range(idx, len(arr)):
+                longest = max(longest, recur_max_length(
+                    arr, i+1, result + arr[i]))
+            return longest
+
+        idx = 0
+        result = ""
+        return recur_max_length(arr, idx, result)
 
 
 class Test(unittest.TestCase):
