@@ -19,7 +19,21 @@ import unittest
 
 class Solution:
     def maxLength(self, arr: list[str]) -> int:
-        pass
+        hmap = dict()
+        # store each character from each substring in a dictionary
+        # key is the char, value is (index of substring, length of substring)
+        # if the char is already in the dictionary, compare the lengths
+        # # remove the substring that is shorter
+        # return the length of the dictionary
+        for i, substring in enumerate(arr):
+            n = len(substring)
+            for j, char in enumerate(substring):
+                if char in hmap:
+                    pass  # TODO
+                else:
+                    hmap[char] = (i, n)
+
+        return len(hmap)
 
 
 class Test(unittest.TestCase):
