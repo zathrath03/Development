@@ -28,8 +28,8 @@ class Solution:
                         self.remove(arr[hmap[char][0]], hmap)
                     else:
                         self.remove(substring[:j], hmap)
-                else:
-                    hmap[char] = (i, n)
+                        break
+                hmap[char] = (i, n)
 
         return len(hmap)
 
