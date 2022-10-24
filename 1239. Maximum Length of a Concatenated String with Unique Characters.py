@@ -42,7 +42,8 @@ class Test(unittest.TestCase):
     test_cases = [
         (["un", "iq", "ue"], 4),
         (["cha", "r", "act", "ers"], 6),
-        (["abcdefghijklmnopqrstuvwxyz"], 26)
+        (["abcdefghijklmnopqrstuvwxyz"], 26),
+        (["ab", "cd", "cde", "cdef", "efg", "fgh", "abxyz"], 11)
     ]
 
     def test_maxLength(self):
