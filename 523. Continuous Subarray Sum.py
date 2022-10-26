@@ -24,14 +24,20 @@ class Solution:
             remainders = {0}
 
         running_sum = 0
+        last_num_was_zero = False
         for num in nums:
             running_sum += num
             remainder = running_sum % k
-            if num == 0 and remainder != 0:
-                continue
+            if num == 0:
+                if last_num_was_zero:
+                    return True
+                if remainder != 0:
+                    last_num_was_zero = True
+                    continue
             if remainder in remainders:
                 return True
             remainders.add(remainder)
+            last_num_was_zero = False
         return False
 
 
