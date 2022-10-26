@@ -17,8 +17,16 @@ import unittest
 
 class Solution:
     def checkSubarraySum(self, nums: list[int], k: int) -> bool:
-        if len(nums) == 1:
-            return False
+        # if sum(nums[i:j])%k == 0, then sum(nums[:i])%k == sum(nums[:j])%k
+        remainders = set()
+        running_sum = 0
+        for num in nums:
+            running_sum += num
+            remainder = running_sum % k
+            if remainder in remainders:
+                return True
+            remainders.add(remainder)
+        return False
         if sum(nums) % k == 0:
             return True
 
