@@ -51,7 +51,8 @@ class Test(unittest.TestCase):
         ([7, 23, 4, 6, 6], 7, False),
         ([1, 0], 2, False),
         ([2, 0], 2, True),
-        ([5, 0, 0, 0], 3, True)
+        ([5, 0, 0, 0], 3, True),
+        ([1, 2, 12], 6, False)
     ]
 
     def test_checkSubarraySum(self):
