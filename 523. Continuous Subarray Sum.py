@@ -27,9 +27,9 @@ class Test(unittest.TestCase):
         ([23, 2, 6, 4, 7], 13, False)
     ]
 
-    def test_checkSubarraySum(test_cases):
+    def test_checkSubarraySum(self):
         sol = Solution()
-        for nums, k, expected in test_cases:
+        for nums, k, expected in self.test_cases:
             assert sol.checkSubarraySum(nums, k) == expected
 
 
