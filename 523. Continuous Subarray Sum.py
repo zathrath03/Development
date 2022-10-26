@@ -18,8 +18,11 @@ import unittest
 class Solution:
     def checkSubarraySum(self, nums: list[int], k: int) -> bool:
         # if sum(nums[i:j])%k == 0, then sum(nums[:i])%k == sum(nums[:j])%k
-        remainders = {0}
-        # TODO handle edge case where first num is a multiple of k
+        if nums[0] % k == 0:
+            remainders = set()
+        else:
+            remainders = {0}
+
         running_sum = 0
         for num in nums:
             running_sum += num
@@ -27,6 +30,7 @@ class Solution:
             if remainder in remainders:
                 return True
             remainders.add(remainder)
+        return False
 
 
 class Test(unittest.TestCase):
