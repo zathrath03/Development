@@ -27,6 +27,8 @@ class Solution:
         for num in nums:
             running_sum += num
             remainder = running_sum % k
+            if num == 0 and remainder != 0:
+                continue
             if remainder in remainders:
                 return True
             remainders.add(remainder)
