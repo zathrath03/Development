@@ -17,7 +17,13 @@ import unittest
 
 class Solution:
     def checkSubarraySum(self, nums: list[int], k: int) -> bool:
-        pass
+        if len(nums) == 1:
+            return False
+        if sum(nums) % k == 0:
+            return True
+
+        return (self.checkSubarraySum(nums[:-1], k)
+                or self.checkSubarraySum(nums[1:], k))
 
 
 class Test(unittest.TestCase):
