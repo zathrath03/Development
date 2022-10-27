@@ -28,6 +28,7 @@ class Solution:
     def largestOverlap(self, img1: list[list[int]],
                        img2: list[list[int]]) -> int:
         # Generate lists of what coordinates have a one for each img.
+        one, two = self.get_coordinates_of_ones(img1, img2)
         # For each combination of those points, calculate what shift would
         # need to happen to get them to line up.
         # Use that shift as a key in a dictionary with a value of one
@@ -35,6 +36,20 @@ class Solution:
         # Return the max value
 
         pass
+
+    def get_coordinates_of_ones(
+        self, img1: list[list[int]], img2: list[list[int]]
+    ) -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
+        n = len(img1)
+        one = []
+        two = []
+        for i in range(n):
+            for j in range(n):
+                if img1[i][j] == 1:
+                    one.append((i, j))
+                if img2[i][j] == 1:
+                    two.append((i, j))
+        return one, two
 
 
 class Test(unittest.TestCase):
