@@ -60,7 +60,8 @@ class Solution:
     def count_ones(self, img: list[list[int]]) -> int:
         pass
 
-    def translate(self, img: list[list[int]], dir: tuple[int, int]) -> list[list[int]]:
+    def translate(self, img: list[list[int]],
+                  dir: tuple[int, int]) -> list[list[int]]:
         pass
 
 
