@@ -11,6 +11,13 @@ Note also that a translation does not include any kind of rotation. Any 1 bits
 that are translated outside of the matrix borders are erased.
 
 Return the largest possible overlap.
+
+Constraints:
+n == img1.length == img1[i].length
+n == img2.length == img2[i].length
+1 <= n <= 30
+img1[i][j] is either 0 or 1.
+img2[i][j] is either 0 or 1.
 """
 
 
