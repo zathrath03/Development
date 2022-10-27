@@ -20,6 +20,17 @@ import unittest
 class Solution:
     def largestOverlap(self, img1: list[list[int]],
                        img2: list[list[int]]) -> int:
+        # Find which img has the fewest number of 1s
+        # -The fewest 1s will be our stationary image
+        # -Provides the max we can possibly return if all 1s overlap
+        # -Should give us a smaller target?
+
+        # May be best to perform this recursively
+        # Base case is the moving image has no ones
+        # Check current overlap of both images
+        # Set output to max(current value, new overlap)
+        # Recursively call function translating left, right, up, down
+        # Return max(self, left, right, up, down)
         pass
 
 
