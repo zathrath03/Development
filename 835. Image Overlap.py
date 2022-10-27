@@ -49,7 +49,13 @@ class Solution:
         # Return max(self, left, right, up, down)
 
     def count_overlap(self, img1, img2):
-        pass
+        n = len(img1)
+        count = 0
+        for i in range(n):
+            for j in range(n):
+                if img1[i][j] == 1 and img2[i][j] == 1:
+                    count += 1
+        return count
 
     def count_ones(self, img: list[list[int]]) -> int:
         pass
