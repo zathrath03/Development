@@ -34,10 +34,27 @@ class Solution:
 
         # May be best to perform this recursively
         # Base case is the moving image has no ones
+        if self.count_ones(img1) == 0:
+            return 0
         # Check current overlap of both images
+        overlap = self.count_overlap(img1, img2)
+        left = self.largestOverlap(self.translate(img1, (-1, 0)), img2)
+        right = self.largestOverlap(self.translate(img1, (1, 0)), img2)
+        up = self.largestOverlap(self.translate(img1, (0, -1)), img2)
+        down = self.largestOverlap(self.translate(img1, (0, 1)), img2)
+
+        return max(overlap, left, right, up, down)
         # Set output to max(current value, new overlap)
         # Recursively call function translating left, right, up, down
         # Return max(self, left, right, up, down)
+
+    def count_overlap(self, img1, img2):
+        pass
+
+    def count_ones(self, img: list[list[int]]) -> int:
+        pass
+
+    def translate(self, img: list[list[int]], dir: tuple[int, int]) -> list[list[int]]:
         pass
 
 
