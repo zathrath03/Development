@@ -43,9 +43,11 @@ class Solution:
             for pt2 in two:
                 yield (pt2[0] - pt1[0], pt2[1] - pt1[1])
 
-    def get_coordinates_of_ones(
-        self, img1: list[list[int]], img2: list[list[int]]
-    ) -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
+    def get_coordinates_of_ones(self,
+                                img1: list[list[int]],
+                                img2: list[list[int]]
+                                ) -> tuple[list[tuple[int, int]],
+                                           list[tuple[int, int]]]:
         n = len(img1)
         one = []
         two = []
