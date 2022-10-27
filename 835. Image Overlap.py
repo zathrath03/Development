@@ -27,41 +27,13 @@ import unittest
 class Solution:
     def largestOverlap(self, img1: list[list[int]],
                        img2: list[list[int]]) -> int:
-        # Find which img has the fewest number of 1s
-        # -The fewest 1s will be our stationary image
-        # -Provides the max we can possibly return if all 1s overlap
-        # -Should give us a smaller target?
+        # Generate lists of what coordinates have a one for each img.
+        # For each combination of those points, calculate what shift would
+        # need to happen to get them to line up.
+        # Use that shift as a key in a dictionary with a value of one
+        # Increment the value each time you encounter the same shift
+        # Return the max value
 
-        # May be best to perform this recursively
-        # Base case is the moving image has no ones
-        if self.count_ones(img1) == 0:
-            return 0
-        # Check current overlap of both images
-        overlap = self.count_overlap(img1, img2)
-        left = self.largestOverlap(self.translate(img1, (-1, 0)), img2)
-        right = self.largestOverlap(self.translate(img1, (1, 0)), img2)
-        up = self.largestOverlap(self.translate(img1, (0, -1)), img2)
-        down = self.largestOverlap(self.translate(img1, (0, 1)), img2)
-
-        return max(overlap, left, right, up, down)
-        # Set output to max(current value, new overlap)
-        # Recursively call function translating left, right, up, down
-        # Return max(self, left, right, up, down)
-
-    def count_overlap(self, img1, img2):
-        n = len(img1)
-        count = 0
-        for i in range(n):
-            for j in range(n):
-                if img1[i][j] == 1 and img2[i][j] == 1:
-                    count += 1
-        return count
-
-    def count_ones(self, img: list[list[int]]) -> int:
-        pass
-
-    def translate(self, img: list[list[int]],
-                  dir: tuple[int, int]) -> list[list[int]]:
         pass
 
 
