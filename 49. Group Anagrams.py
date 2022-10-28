@@ -13,12 +13,19 @@ strs[i] consists of lowercase English letters.
 """
 
 
+from collections import Counter, defaultdict
 import unittest
 
 
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
-        pass
+        anagrams = defaultdict(list)
+
+        for chars in strs:
+            counts = tuple(sorted(Counter(chars).items()))
+            anagrams[counts].append(chars)
+
+        return list(anagrams.values())
 
 
 class Test(unittest.TestCase):
