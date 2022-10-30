@@ -17,6 +17,25 @@ grid[0][0] == grid[m - 1][n - 1] == 0
 """
 
 
+import unittest
+
+
 class Solution:
     def shortestPath(self, grid: list[list[int]], k: int) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = [
+        ([[0, 0, 0], [1, 1, 0], [0, 0, 0], [0, 1, 1], [0, 0, 0]], 1, 6),
+        ([[0, 1, 1], [1, 1, 1], [1, 0, 0]], 1, -1)
+    ]
+
+    def test_shortestPath(self):
+        sol = Solution()
+        for grid, k, expected in self.test_cases:
+            assert sol.shortestPath(grid, k) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
