@@ -17,7 +17,7 @@ grid[0][0] == grid[m - 1][n - 1] == 0
 """
 
 
-from typing import Union
+from collections import deque
 import unittest
 
 
@@ -25,29 +25,36 @@ class Solution:
     def shortestPath(self, grid: list[list[int]], k: int) -> int:
         num_rows = len(grid)
         num_cols = len(grid[0])
+
         if k > num_rows + num_cols - 3:
             return num_rows + num_cols - 2
         visited: set[tuple[int, int]] = set()
 
-        def recursive_path_search(row: int, col: int, remaining: int
-                                  ) -> Union[int, float]:
-            if (row < 0 or col < 0 or row > num_rows - 1 or col > num_cols - 1
-                or (is_blocked := grid[row][col]) and remaining == 0
-                    or (row, col) in visited):
-                return float('inf')
-            if row == num_rows - 1 and col == num_cols - 1:
-                return 0
-            visited.add((row, col))
-            if is_blocked:
-                remaining -= 1
-            up = recursive_path_search(row - 1, col, remaining)
-            down = recursive_path_search(row + 1, col, remaining)
-            left = recursive_path_search(row, col - 1, remaining)
-            right = recursive_path_search(row, col + 1, remaining)
-            return 1 + min(up, down, left, right)
+        target = (num_rows - 1, num_cols - 1)
+        state = (0, 0, k)
 
-        if (length := recursive_path_search(0, 0, k)) < float('inf'):
-            return int(length)
+        visited: set[tuple[int, int, int]] = set()
+        visited.add(state)
+
+        queue: deque[tuple[int, tuple[int, int, int]]] = deque()
+        queue.append((0, state))
+
+        while queue:
+            steps, (row, col, remaining) = queue.popleft()
+
+            if (row, col) == target:
+                return steps
+
+            for row, col in [(row + 1, col), (row, col + 1),
+                             (row - 1, col), (row, col - 1)]:
+                if (0 <= row < num_rows) and (0 <= col < num_cols):
+                    remaining -= grid[row][col]
+                    state = (row, col, remaining)
+
+                    if remaining >= 0 and state not in visited:
+                        queue.append((steps + 1, state))
+                        visited.add(state)
+
         return -1
 
 
