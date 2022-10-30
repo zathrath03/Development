@@ -29,7 +29,7 @@ class Solution:
 
         def recursive_path_search(row: int, col: int, remaining: int
                                   ) -> Union[int, float]:
-            if (row < 0 or col < 0
+            if (row < 0 or col < 0 or row > num_rows - 1 or col > num_cols - 1
                 or (is_blocked := grid[row][col]) and remaining == 0
                     or (row, col) in visited):
                 return float('inf')
