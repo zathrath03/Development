@@ -17,12 +17,36 @@ grid[0][0] == grid[m - 1][n - 1] == 0
 """
 
 
+from typing import Union
 import unittest
 
 
 class Solution:
     def shortestPath(self, grid: list[list[int]], k: int) -> int:
-        return 0
+        num_rows = len(grid)
+        num_cols = len(grid[0])
+        visited: set[tuple[int, int]] = set()
+
+        def recursive_path_search(row: int, col: int, remaining: int
+                                  ) -> Union[int, float]:
+            if (row < 0 or col < 0
+                or (is_blocked := grid[row][col]) and remaining == 0
+                    or (row, col) in visited):
+                return float('inf')
+            if row == num_rows - 1 and col == num_cols:
+                return 1
+            visited.add((row, col))
+            if is_blocked:
+                remaining -= 1
+            up = recursive_path_search(row - 1, col, remaining)
+            down = recursive_path_search(row + 1, col, remaining)
+            left = recursive_path_search(row, col - 1, remaining)
+            right = recursive_path_search(row, col + 1, remaining)
+            return 1 + min(up, down, left, right)
+
+        if (length := recursive_path_search(0, 0, k)) < float('inf'):
+            return int(length)
+        return -1
 
 
 class Test(unittest.TestCase):
