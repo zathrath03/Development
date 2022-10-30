@@ -60,7 +60,8 @@ class Test(unittest.TestCase):
           [0, 0, 1, 0],
           [1, 0, 0, 1],
           [0, 1, 0, 0]],
-         18, 7)
+         18, 7),
+        ([[0, 0, 1, 0, 0], [0, 1, 0, 1, 0]], 2, 5)
     ]
 
     def test_shortestPath(self):
