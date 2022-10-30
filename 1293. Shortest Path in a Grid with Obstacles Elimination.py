@@ -33,8 +33,8 @@ class Solution:
                 or (is_blocked := grid[row][col]) and remaining == 0
                     or (row, col) in visited):
                 return float('inf')
-            if row == num_rows - 1 and col == num_cols:
-                return 1
+            if row == num_rows - 1 and col == num_cols - 1:
+                return 0
             visited.add((row, col))
             if is_blocked:
                 remaining -= 1
