@@ -25,6 +25,8 @@ class Solution:
     def shortestPath(self, grid: list[list[int]], k: int) -> int:
         num_rows = len(grid)
         num_cols = len(grid[0])
+        if k > num_rows + num_cols - 3:
+            return num_rows + num_cols - 2
         visited: set[tuple[int, int]] = set()
 
         def recursive_path_search(row: int, col: int, remaining: int
