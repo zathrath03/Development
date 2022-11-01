@@ -32,11 +32,9 @@ class Solution:
         target = (num_rows - 1, num_cols - 1)
         state = (0, 0, k)
 
-        visited: set[tuple[int, int, int]] = set()
-        visited.add(state)
+        visited = {state}
 
-        queue: deque[tuple[int, tuple[int, int, int]]] = deque()
-        queue.append((0, state))
+        queue = deque([(0, state)])
 
         while queue:
             steps, (row, col, remaining) = queue.popleft()
@@ -47,8 +45,8 @@ class Solution:
             for row, col in [(row + 1, col), (row, col + 1),
                              (row - 1, col), (row, col - 1)]:
                 if (0 <= row < num_rows) and (0 <= col < num_cols):
-                    remaining -= grid[row][col]
-                    state = (row, col, remaining)
+                    new_remaining = remaining - grid[row][col]
+                    state = (row, col, new_remaining)
 
                     if remaining >= 0 and state not in visited:
                         queue.append((steps + 1, state))
