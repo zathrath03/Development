@@ -50,7 +50,8 @@ class Solution:
         slant = self.grid[row][col]
         boundary_col = col + slant
         num_cols = len(self.grid[0])
-        return 0 > boundary_col or boundary_col >= num_cols or self.grid[row][boundary_col] != slant
+        return (boundary_col < 0 or boundary_col >= num_cols
+                or self.grid[row][boundary_col] != slant)
 
 
 class Test(unittest.TestCase):
