@@ -39,11 +39,10 @@ class Solution:
         return output
 
     def find_output(self, col: int) -> int:
-        grid = self.grid
-        num_rows = len(grid)
+        num_rows = len(self.grid)
         slant = 0
         for row in range(num_rows):
-            slant = grid[row][col]
+            slant = self.grid[row][col]
             if (self.is_not_trapped(row, col, slant)):
                 col += slant
             else:
@@ -51,10 +50,9 @@ class Solution:
         return col
 
     def is_not_trapped(self, row, col, slant):
-        grid = self.grid
         boundary_col = col + slant
-        num_cols = len(grid[0])
-        return 0 <= boundary_col < num_cols and grid[row][boundary_col] == slant
+        num_cols = len(self.grid[0])
+        return 0 <= boundary_col < num_cols and self.grid[row][boundary_col] == slant
 
 
 class Test(unittest.TestCase):
