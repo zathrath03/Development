@@ -31,21 +31,29 @@ import unittest
 
 class Solution:
     def findBall(self, grid: list[list[int]]) -> list[int]:
+        self.grid = grid
         output = []
-        num_rows, num_cols = len(grid), len(grid[0])
+        num_cols = len(grid[0])
         for col in range(num_cols):
-            for row in range(num_rows):
-                slant = grid[row][col]
-                boundary_col = col + slant
-                if (boundary_col < 0 or boundary_col >= num_cols
-                        or grid[row][boundary_col] == -slant):
-                    output.append(-1)
-                    break
-                elif row == num_rows - 1:
-                    output.append(col + slant)
-                    break
-                else:
-                    col += slant
+            output.append(self.find_output(col))
+        return output
+
+    def find_output(self, col: int) -> int:
+        grid = self.grid
+        num_rows = len(grid)
+        num_cols = len(grid[0])
+        for row in range(num_rows):
+            slant = grid[row][col]
+            boundary_col = col + slant
+            if (boundary_col < 0 or boundary_col >= num_cols
+                    or grid[row][boundary_col] == -slant):
+                output = -1
+                break
+            elif row == num_rows - 1:
+                output = col + slant
+                break
+            else:
+                col += slant
         return output
 
 
