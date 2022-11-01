@@ -41,17 +41,21 @@ class Solution:
     def find_output(self, col: int) -> int:
         grid = self.grid
         num_rows = len(grid)
-        num_cols = len(grid[0])
         boundary_col = -1
         for row in range(num_rows):
             slant = grid[row][col]
             boundary_col = col + slant
-            if (0 <= boundary_col < num_cols
-                    and grid[row][boundary_col] == slant):
+            if (self.is_not_trapped(row, col, slant)):
                 col += slant
             else:
                 return -1
         return boundary_col
+
+    def is_not_trapped(self, row, col, slant):
+        grid = self.grid
+        boundary_col = col + slant
+        num_cols = len(grid[0])
+        return 0 <= boundary_col < num_cols and grid[row][boundary_col] == slant
 
 
 class Test(unittest.TestCase):
