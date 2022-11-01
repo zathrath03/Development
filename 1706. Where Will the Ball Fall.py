@@ -32,13 +32,13 @@ import unittest
 class Solution:
     def findBall(self, grid: list[list[int]]) -> list[int]:
         self.grid = grid
-        output = []
+        outlets = []
         num_cols = len(grid[0])
         for col in range(num_cols):
-            output.append(self.find_output(col))
-        return output
+            outlets.append(self.find_outlets(col))
+        return outlets
 
-    def find_output(self, col: int) -> int:
+    def find_outlets(self, col: int) -> int:
         num_rows = len(self.grid)
         for row in range(num_rows):
             if (self.is_trapped(row, col)):
