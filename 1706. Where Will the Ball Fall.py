@@ -40,16 +40,15 @@ class Solution:
 
     def find_output(self, col: int) -> int:
         num_rows = len(self.grid)
-        slant = 0
         for row in range(num_rows):
-            slant = self.grid[row][col]
-            if (self.is_not_trapped(row, col, slant)):
-                col += slant
+            if (self.is_not_trapped(row, col)):
+                col += self.grid[row][col]
             else:
                 return -1
         return col
 
-    def is_not_trapped(self, row, col, slant):
+    def is_not_trapped(self, row, col):
+        slant = self.grid[row][col]
         boundary_col = col + slant
         num_cols = len(self.grid[0])
         return 0 <= boundary_col < num_cols and self.grid[row][boundary_col] == slant
