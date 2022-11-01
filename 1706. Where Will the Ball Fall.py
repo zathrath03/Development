@@ -66,8 +66,7 @@ class Test(unittest.TestCase):
     def test_findBall(self):
         sol = Solution()
         for grid, expected in self.test_cases:
-            # assert sol.findBall(grid) == expected
-            print(f"{sol.findBall(grid)} == {expected}?")
+            assert sol.findBall(grid) == expected
 
 
 if __name__ == "__main__":
