@@ -46,7 +46,7 @@ class Solution:
             col += self.grid[row][col]
         return col
 
-    def is_trapped(self, row, col):
+    def is_trapped(self, row: int, col: int) -> bool:
         slant = self.grid[row][col]
         boundary_col = col + slant
         num_cols = len(self.grid[0])
