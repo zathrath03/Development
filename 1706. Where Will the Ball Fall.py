@@ -31,6 +31,13 @@ import unittest
 
 class Solution:
     def findBall(self, grid: list[list[int]]) -> list[int]:
+        # perform a dfs for each column in the grid
+        # Check if stuck in current cell
+        # - if current cell is 1, check if next cell is -1 or boundary
+        # - if current cell is -1, check if prev cell is -1 or boundary
+        # - can just add value of current cell to current column instead of
+        #   using two cases
+        # Keep track of cells that will trap balls so we don't need to check
         return [0]
 
 
