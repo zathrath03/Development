@@ -42,19 +42,16 @@ class Solution:
         grid = self.grid
         num_rows = len(grid)
         num_cols = len(grid[0])
+        boundary_col = -1
         for row in range(num_rows):
             slant = grid[row][col]
             boundary_col = col + slant
-            if (boundary_col < 0 or boundary_col >= num_cols
-                    or grid[row][boundary_col] == -slant):
-                output = -1
-                break
-            elif row == num_rows - 1:
-                output = col + slant
-                break
-            else:
+            if (0 <= boundary_col < num_cols
+                    and grid[row][boundary_col] == slant):
                 col += slant
-        return output
+            else:
+                return -1
+        return boundary_col
 
 
 class Test(unittest.TestCase):
