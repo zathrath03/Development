@@ -26,13 +26,19 @@ class Solution:
         self.init()
 
         for word in words:
-            if word in self.needed_words:
-                self.handle_needed_words(word)
-            else:
-                self.handle_new_words(word)
+            self.determine_if_needed(word)
+        self.increment_output_if_single_double_letter_word()
+        return self.output
+
+    def increment_output_if_single_double_letter_word(self):
         if self.double_letter_words:
             self.output += 2
-        return self.output
+
+    def determine_if_needed(self, word):
+        if word in self.needed_words:
+            self.handle_needed_words(word)
+        else:
+            self.handle_new_words(word)
 
     def init(self):
         self.needed_words: defaultdict[str, int] = defaultdict(int)
