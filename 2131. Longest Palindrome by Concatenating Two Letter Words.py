@@ -27,24 +27,16 @@ class Solution:
         double_letter_word = False
         # Iterate through the list
         for word in words:
-            # If the word is a double letter, set a flag for DL encountered
             # TODO handle when the same double letter word occurs twice
             if word[0] == word[1]:
                 double_letter_word = True
-            # Check if the word is in a set
             if word in candidates:
-                # If it is, add four to the output and remove the word from the set
                 candidates.remove(word)
                 output += 4
-
-        # If it is not, add its reverse to the set
             else:
                 candidates.add(word[::-1])
-        # Once through the list, add two to the output if the double letter flag is set
         if double_letter_word:
             output += 2
-        # Return the output
-
         return output
 
 
