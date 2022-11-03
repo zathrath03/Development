@@ -25,7 +25,7 @@ class Solution:
         candidates = set()
         output = 0
         double_letter_word = False
-        # Iterate through the list
+
         for word in words:
             # TODO handle when the same double letter word occurs twice
             if word[0] == word[1]:
