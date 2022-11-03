@@ -22,6 +22,15 @@ import unittest
 
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
+        """
+        Iterate through the list
+        If the word is a double letter, set a flag for DL encountered
+        Check if the word is in a set
+        If it is, add four to the output and remove the word from the set
+        If it is not, add its reverse to the set
+        Once through the list, add two to the output if the double letter flag is set
+        Return the output
+        """
         return 0
 
 
