@@ -23,25 +23,28 @@ import unittest
 
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
-        candidates: defaultdict[str, int] = defaultdict(int)
-        output = 0
-        double_letter_words = 0
+        self.candidates: defaultdict[str, int] = defaultdict(int)
+        self.output = 0
+        self.double_letter_words = 0
 
         for word in words:
-            if word in candidates:
-                if word[0] == word[1]:
-                    double_letter_words -= 1
-                candidates[word] -= 1
-                if candidates[word] == 0:
-                    del candidates[word]
-                output += 4
+            if word in self.candidates:
+                self.handle_word_in_candidates(word)
             else:
                 if word[0] == word[1]:
-                    double_letter_words += 1
-                candidates[word[::-1]] += 1
-        if double_letter_words:
-            output += 2
-        return output
+                    self.double_letter_words += 1
+                self.candidates[word[::-1]] += 1
+        if self.double_letter_words:
+            self.output += 2
+        return self.output
+
+    def handle_word_in_candidates(self, word):
+        if word[0] == word[1]:
+            self.double_letter_words -= 1
+        self.candidates[word] -= 1
+        if self.candidates[word] == 0:
+            del self.candidates[word]
+        self.output += 4
 
 
 class Test(unittest.TestCase):
