@@ -27,18 +27,14 @@ class Solution:
         double_letter_words = 0
 
         for word in words:
-            if word[0] == word[1]:
-                if word in candidates:
-                    candidates.remove(word)
-                    output += 4
+            if word in candidates:
+                if word[0] == word[1]:
                     double_letter_words -= 1
-                else:
-                    double_letter_words += 1
-                    candidates.add(word)
-            elif word in candidates:
                 candidates.remove(word)
                 output += 4
             else:
+                if word[0] == word[1]:
+                    double_letter_words += 1
                 candidates.add(word[::-1])
         if double_letter_words:
             output += 2
