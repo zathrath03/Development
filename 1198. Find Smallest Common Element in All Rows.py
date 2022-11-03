@@ -18,15 +18,6 @@ import unittest
 
 class Solution:
     def smallestCommonElement(self, mat: list[list[int]]) -> int:
-        """
-        initiate a list of pointers with a length equal to the number of rows to 0
-        while the max of those pointers is less than length of a row
-        Keep track of the largest value that a pointer is pointing to
-        Iterate through each row.
-        If the pointed to value is smaller than the current largest,
-         move the pointer to the next value until its equal or larger
-         if larger, set the largest to that value and move to the next row
-        """
         num_rows = len(mat)
         num_cols = len(mat[0])
         ptr = [0] * num_rows
