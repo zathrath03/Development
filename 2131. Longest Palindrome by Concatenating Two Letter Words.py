@@ -17,6 +17,26 @@ words[i] consists of lowercase English letters.
 """
 
 
+import unittest
+
+
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = [
+        (["lc", "cl", "gg"], 6),
+        (["ab", "ty", "yt", "lc", "cl", "ab"], 8),
+        (["cc", "ll", "xx"], 2)
+    ]
+
+    def test_longestPalindrome(self):
+        sol = Solution()
+        for words, expected in self.test_cases:
+            assert sol.longestPalindrome(words) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
