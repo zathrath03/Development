@@ -22,20 +22,25 @@ import unittest
 
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
-        candidates = set()
+        candidates: set[str] = set()
         output = 0
-        double_letter_word = False
+        double_letter_words = 0
 
         for word in words:
-            # TODO handle when the same double letter word occurs twice
             if word[0] == word[1]:
-                double_letter_word = True
-            if word in candidates:
+                if word in candidates:
+                    candidates.remove(word)
+                    output += 4
+                    double_letter_words -= 1
+                else:
+                    double_letter_words += 1
+                    candidates.add(word)
+            elif word in candidates:
                 candidates.remove(word)
                 output += 4
             else:
                 candidates.add(word[::-1])
-        if double_letter_word:
+        if double_letter_words:
             output += 2
         return output
 
@@ -44,13 +49,15 @@ class Test(unittest.TestCase):
     test_cases = [
         (["lc", "cl", "gg"], 6),
         (["ab", "ty", "yt", "lc", "cl", "ab"], 8),
-        (["cc", "ll", "xx"], 2)
+        (["cc", "ll", "xx"], 2),
+        (["lc", "cl", "gg", "gg"], 8)
     ]
 
     def test_longestPalindrome(self):
         sol = Solution()
         for words, expected in self.test_cases:
             assert sol.longestPalindrome(words) == expected
+            # print(sol.longestPalindrome(words), expected)
 
 
 if __name__ == "__main__":
