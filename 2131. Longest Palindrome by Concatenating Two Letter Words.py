@@ -27,7 +27,7 @@ class Solution:
 
         for word in words:
             self.determine_if_needed(word)
-        self.increment_output_if_single_double_letter_word()
+        self.increment_output_if_double_letter_word_remains()
         return self.output
 
     def init(self):
@@ -41,7 +41,7 @@ class Solution:
         else:
             self.handle_new_words(word)
 
-    def increment_output_if_single_double_letter_word(self):
+    def increment_output_if_double_letter_word_remains(self):
         if self.double_letter_words:
             self.output += 2
 
