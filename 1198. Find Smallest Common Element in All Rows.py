@@ -10,3 +10,8 @@ n == mat[i].length
 1 <= mat[i][j] <= 104
 mat[i] is sorted in strictly increasing order.
 """
+
+
+class Solution:
+    def smallestCommonElement(self, mat: list[list[int]]) -> int:
+        return 0
