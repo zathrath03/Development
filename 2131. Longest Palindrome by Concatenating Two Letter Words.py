@@ -22,7 +22,7 @@ import unittest
 
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
-        candidates: set[str] = set()
+        candidates: list[str] = []
         output = 0
         double_letter_words = 0
 
@@ -35,7 +35,7 @@ class Solution:
             else:
                 if word[0] == word[1]:
                     double_letter_words += 1
-                candidates.add(word[::-1])
+                candidates.append(word[::-1])
         if double_letter_words:
             output += 2
         return output
