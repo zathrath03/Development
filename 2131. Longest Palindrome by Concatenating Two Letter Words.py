@@ -23,28 +23,43 @@ import unittest
 
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
-        self.candidates: defaultdict[str, int] = defaultdict(int)
-        self.output = 0
-        self.double_letter_words = 0
+        self.init()
 
         for word in words:
-            if word in self.candidates:
-                self.handle_word_in_candidates(word)
+            if word in self.needed_words:
+                self.handle_needed_words(word)
             else:
-                if word[0] == word[1]:
-                    self.double_letter_words += 1
-                self.candidates[word[::-1]] += 1
+                self.handle_new_words(word)
         if self.double_letter_words:
             self.output += 2
         return self.output
 
-    def handle_word_in_candidates(self, word):
+    def init(self):
+        self.needed_words: defaultdict[str, int] = defaultdict(int)
+        self.output = 0
+        self.double_letter_words = 0
+
+    def handle_new_words(self, word):
+        self.increment_double_letters(word)
+        self.needed_words[word[::-1]] += 1
+
+    def increment_double_letters(self, word):
+        if word[0] == word[1]:
+            self.double_letter_words += 1
+
+    def handle_needed_words(self, word):
+        self.decrement_double_letters(word)
+        self.decrement_candidates(word)
+        self.output += 4
+
+    def decrement_candidates(self, word):
+        self.needed_words[word] -= 1
+        if self.needed_words[word] == 0:
+            del self.needed_words[word]
+
+    def decrement_double_letters(self, word):
         if word[0] == word[1]:
             self.double_letter_words -= 1
-        self.candidates[word] -= 1
-        if self.candidates[word] == 0:
-            del self.candidates[word]
-        self.output += 4
 
 
 class Test(unittest.TestCase):
