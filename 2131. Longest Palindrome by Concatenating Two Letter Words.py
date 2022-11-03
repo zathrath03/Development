@@ -46,7 +46,9 @@ class Test(unittest.TestCase):
         (["lc", "cl", "gg"], 6),
         (["ab", "ty", "yt", "lc", "cl", "ab"], 8),
         (["cc", "ll", "xx"], 2),
-        (["lc", "cl", "gg", "gg"], 8)
+        (["lc", "cl", "gg", "gg"], 8),
+        (["qo", "fo", "fq", "qf", "fo", "ff", "qq", "qf",
+         "of", "of", "oo", "of", "of", "qf", "qf", "of"], 14)
     ]
 
     def test_longestPalindrome(self):
