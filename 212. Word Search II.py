@@ -16,7 +16,7 @@ board[i][j] is a lowercase English letter.
 words[i] consists of lowercase English letters.
 All the strings of words are unique.
 """
-from collections import defaultdict
+from collections import defaultdict, deque
 import unittest
 
 
@@ -41,7 +41,25 @@ class Solution:
                    possible_words: list[str],
                    board: list[list[str]]
                    ) -> list[str]:
-        return []
+        # If any of the words have len of one, append it to output and remove it from possible words
+        # Check the adjacent cells to see if any of them contain the ith letter of the possible words
+        # - keep track of which index we're checking, starting at 1
+        # - Add all adjacent cells to a queue
+        # - While there are cells in the queue:
+        # - - Check that the cell is within the bounds of the board
+        # - - Check that the cell hasn't already been visited
+        # - - Check if the letter in the cell equals the ith letter of any words
+        # - - - If it does, add the cell to a list of cells to get adjacents to in the next pass
+        # - - - If that is the last letter of the word, add it to the output and remove it from possible words
+        # - Check the length of remaining words and remove any that we're at the end of
+        output = []
+        cells = [cell]
+        queue = deque()
+        while (len(possible_words) > 0):
+            for cell in cells:
+                for adjacent in ((0, 1), (0, -1), (1, 0), (-1, 0)):
+                    queue.append((cell + adjacent))
+        return output
 
 
 class Test(unittest.TestCase):
