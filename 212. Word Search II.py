@@ -45,20 +45,10 @@ class Solution:
                    possible_words: set[str],
                    board: list[list[str]]
                    ) -> list[str]:
-        # If any of the words have len of one, append it to output and remove it from possible words
-        # Check the adjacent cells to see if any of them contain the ith letter of the possible words
-        # - keep track of which index we're checking, starting at 1
-        # - Add all adjacent cells to a queue
-        # - While there are cells in the queue:
-        # - - Check that the cell is within the bounds of the board
-        # - - Check that the cell hasn't already been visited
-        # - - Check if the letter in the cell equals the ith letter of any words
-        # - - - If it does, add the cell to a list of cells to get adjacents to in the next pass
-        # - - - If that is the last letter of the word, add it to the output and remove it from possible words
-        # - Check the length of remaining words and remove any that we're at the end of
         output = []
         cells = [cell]
         queue = deque()
+        # TODO handle allowing a letter to be reused if it never results in a valid word
         visited = set()
         visited.add(cell)
         letter_index = 1
@@ -91,15 +81,15 @@ class Solution:
 
 class Test(unittest.TestCase):
     test_cases = [
-        ([["o", "a", "a", "n"], ["e", "t", "a", "e"],
-         ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
-         ["oath", "pea", "eat", "rain"], ["eat", "oath"]),
-        ([["a", "b"], ["c", "d"]], ["abcb"], []),
-        ([["a"]], ["a"], ["a"]),
-        ([["o", "a", "b", "n"], ["o", "t", "a", "e"], ["a", "h", "k", "r"],
-         ["a", "f", "l", "v"]], ["oa", "oaa"], ["oa", "oaa"]),
-        ([["a", "b", "c", "e"], ["x", "x", "c", "d"],
-         ["x", "x", "b", "a"]], ["abc", "abcd"], ["abc", "abcd"]),
+        # ([["o", "a", "a", "n"], ["e", "t", "a", "e"],
+        #  ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
+        #  ["oath", "pea", "eat", "rain"], ["eat", "oath"]),
+        # ([["a", "b"], ["c", "d"]], ["abcb"], []),
+        # ([["a"]], ["a"], ["a"]),
+        # ([["o", "a", "b", "n"], ["o", "t", "a", "e"], ["a", "h", "k", "r"],
+        #  ["a", "f", "l", "v"]], ["oa", "oaa"], ["oa", "oaa"]),
+        # ([["a", "b", "c", "e"], ["x", "x", "c", "d"],
+        #  ["x", "x", "b", "a"]], ["abc", "abcd"], ["abc", "abcd"]),
         ([["a", "b", "c"], ["a", "e", "d"], ["a", "f", "g"]], [
          "abcdefg", "eaabcdgfa", "ade"], ["abcdefg", "eaabcdgfa"])
     ]
