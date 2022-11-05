@@ -56,17 +56,17 @@ class Solution:
         cells = [cell]
         queue = deque()
         visited = set()
-        visited.add((0, 0))  # TODO change this to add cell, not 0, 0
+        visited.add(cell)
         letter_index = 1
         while (len(possible_words) > 0):
             for cell in cells:  # TODO consider while cells with cells.pop() in the zip()
                 for adjacent in ((0, 1), (0, -1), (1, 0), (-1, 0)):
-                    # TODO move checking for visited up here?
-                    queue.append(tuple(map(sum, zip(cell, adjacent))))
+                    if (adj_cell := tuple(map(sum, zip(cell, adjacent)))) not in visited:
+                        queue.append(adj_cell)
             cells.clear()
             while queue:
                 cell = queue.pop()
-                if (cell in visited or cell[0] < 0 or cell[0] >= len(board)
+                if (cell[0] < 0 or cell[0] >= len(board)
                         or cell[1] < 0 or cell[1] >= len(board[0])):
                     continue
                 for word in possible_words.copy():
@@ -97,7 +97,7 @@ class Test(unittest.TestCase):
         sol = Solution()
         for board, words, expected in self.test_cases:
             print(sol.findWords(board, words))
-            assert sol.findWords(board, words) == expected
+            assert set(sol.findWords(board, words)) == set(expected)
 
 
 if __name__ == "__main__":
