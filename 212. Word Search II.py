@@ -99,7 +99,9 @@ class Test(unittest.TestCase):
         ([["o", "a", "b", "n"], ["o", "t", "a", "e"], ["a", "h", "k", "r"],
          ["a", "f", "l", "v"]], ["oa", "oaa"], ["oa", "oaa"]),
         ([["a", "b", "c", "e"], ["x", "x", "c", "d"],
-         ["x", "x", "b", "a"]], ["abc", "abcd"], ["abc", "abcd"])
+         ["x", "x", "b", "a"]], ["abc", "abcd"], ["abc", "abcd"]),
+        ([["a", "b", "c"], ["a", "e", "d"], ["a", "f", "g"]], [
+         "abcdefg", "eaabcdgfa", "ade"], ["abcdefg", "eaabcdgfa"])
     ]
 
     def test_findWords(self):
