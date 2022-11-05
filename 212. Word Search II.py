@@ -16,8 +16,27 @@ board[i][j] is a lowercase English letter.
 words[i] consists of lowercase English letters.
 All the strings of words are unique.
 """
+import unittest
 
 
 class Solution:
     def findWords(self, board: list[list[str]], words: list[str]) -> list[str]:
         return []
+
+
+class Test(unittest.TestCase):
+    test_cases = [
+        ([["o", "a", "a", "n"], ["e", "t", "a", "e"],
+         ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
+         ["oath", "pea", "eat", "rain"], ["eat", "oath"]),
+        ([["a", "b"], ["c", "d"]], ["abcb"], [])
+    ]
+
+    def test_findWords(self):
+        sol = Solution()
+        for board, words, expected in self.test_cases:
+            assert sol.findWords(board, words) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
