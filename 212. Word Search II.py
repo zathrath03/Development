@@ -80,7 +80,7 @@ class Solution:
                         possible_words.remove(word)
                     elif word[letter_index] == board[cell[0]][cell[1]]:
                         cells.append(cell)
-                visited.add(cell)
+                        visited.add(cell)
             letter_index += 1
             for word in possible_words.copy():
                 if len(word) == letter_index:
