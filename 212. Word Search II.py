@@ -31,14 +31,14 @@ class Solution:
             for j, letter in enumerate(row):
                 if letter in first_letters:
                     cell = (i, j)
-                    possible_words = [words[index]
-                                      for index in first_letters[letter]]
+                    possible_words = {words[index]
+                                      for index in first_letters[letter]}
                     output.extend(self.trace_word(cell, possible_words, board))
         return output
 
     def trace_word(self,
                    cell: tuple[int, int],
-                   possible_words: list[str],
+                   possible_words: set[str],
                    board: list[list[str]]
                    ) -> list[str]:
         # If any of the words have len of one, append it to output and remove it from possible words
@@ -55,16 +55,39 @@ class Solution:
         output = []
         cells = [cell]
         queue = deque()
+        visited = set()
+        visited.add((0, 0))  # TODO change this to add cell, not 0, 0
+        letter_index = 1
         while (len(possible_words) > 0):
-            for cell in cells:
+            for cell in cells:  # TODO consider while cells with cells.pop() in the zip()
                 for adjacent in ((0, 1), (0, -1), (1, 0), (-1, 0)):
-                    queue.append((cell + adjacent))
+                    # TODO move checking for visited up here?
+                    queue.append(tuple(map(sum, zip(cell, adjacent))))
+            cells.clear()
+            while queue:
+                cell = queue.pop()
+                if (cell in visited or cell[0] < 0 or cell[0] >= len(board)
+                        or cell[1] < 0 or cell[1] >= len(board[0])):
+                    continue
+                for word in possible_words.copy():
+                    if (len(word) == letter_index + 1
+                            and word[-1] == board[cell[0]][cell[1]]):
+                        output.append(word)
+                        possible_words.remove(word)
+                    elif word[letter_index] == board[cell[0]][cell[1]]:
+                        cells.append(cell)
+                visited.add(cell)
+            letter_index += 1
+            for word in possible_words.copy():
+                if len(word) == letter_index:
+                    possible_words.remove(word)
+
         return output
 
 
 class Test(unittest.TestCase):
     test_cases = [
-        ([["o", "a", "a", "n"], ["e", "t", "a", "e"],
+        ([["o", "a", "a", "n"], ["e", "t", "a", "e"],  # TODO will it handle if (1,0) is an a?
          ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
          ["oath", "pea", "eat", "rain"], ["eat", "oath"]),
         ([["a", "b"], ["c", "d"]], ["abcb"], [])
@@ -73,6 +96,7 @@ class Test(unittest.TestCase):
     def test_findWords(self):
         sol = Solution()
         for board, words, expected in self.test_cases:
+            print(sol.findWords(board, words))
             assert sol.findWords(board, words) == expected
 
 
