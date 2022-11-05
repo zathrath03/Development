@@ -37,10 +37,8 @@ class Solution:
                             output.append(word)
                         else:
                             possible_words.add(word)
-                    # possible_words = {words[index]
-                    #                   for index in first_letters[letter]}
                     output.extend(self.trace_word(cell, possible_words, board))
-        return output
+        return list(set(output))
 
     def trace_word(self,
                    cell: tuple[int, int],
@@ -93,11 +91,13 @@ class Solution:
 
 class Test(unittest.TestCase):
     test_cases = [
-        ([["o", "a", "a", "n"], ["e", "t", "a", "e"],  # TODO will it handle if (1,0) is an a?
+        ([["o", "a", "a", "n"], ["e", "t", "a", "e"],
          ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
          ["oath", "pea", "eat", "rain"], ["eat", "oath"]),
         ([["a", "b"], ["c", "d"]], ["abcb"], []),
-        ([["a"]], ["a"], ["a"])
+        ([["a"]], ["a"], ["a"]),
+        ([["o", "a", "b", "n"], ["o", "t", "a", "e"], ["a", "h", "k", "r"],
+         ["a", "f", "l", "v"]], ["oa", "oaa"], ["oa", "oaa"])
     ]
 
     def test_findWords(self):
