@@ -16,11 +16,31 @@ board[i][j] is a lowercase English letter.
 words[i] consists of lowercase English letters.
 All the strings of words are unique.
 """
+from collections import defaultdict
 import unittest
 
 
 class Solution:
     def findWords(self, board: list[list[str]], words: list[str]) -> list[str]:
+        first_letters = defaultdict(list)
+        for i, word in enumerate(words):
+            first_letters[word[0]].append(i)
+
+        output = []
+        for i, row in enumerate(board):
+            for j, letter in enumerate(row):
+                if letter in first_letters:
+                    cell = (i, j)
+                    possible_words = [words[index]
+                                      for index in first_letters[letter]]
+                    output.extend(self.trace_word(cell, possible_words, board))
+        return output
+
+    def trace_word(self,
+                   cell: tuple[int, int],
+                   possible_words: list[str],
+                   board: list[list[str]]
+                   ) -> list[str]:
         return []
 
 
