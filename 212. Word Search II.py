@@ -31,8 +31,14 @@ class Solution:
             for j, letter in enumerate(row):
                 if letter in first_letters:
                     cell = (i, j)
-                    possible_words = {words[index]
-                                      for index in first_letters[letter]}
+                    possible_words = set()
+                    for index in first_letters[letter]:
+                        if len(word := words[index]) == 1:
+                            output.append(word)
+                        else:
+                            possible_words.add(word)
+                    # possible_words = {words[index]
+                    #                   for index in first_letters[letter]}
                     output.extend(self.trace_word(cell, possible_words, board))
         return output
 
@@ -59,11 +65,11 @@ class Solution:
         visited.add(cell)
         letter_index = 1
         while (len(possible_words) > 0):
-            for cell in cells:  # TODO consider while cells with cells.pop() in the zip()
+            while cells:
+                cell = cells.pop()
                 for adjacent in ((0, 1), (0, -1), (1, 0), (-1, 0)):
                     if (adj_cell := tuple(map(sum, zip(cell, adjacent)))) not in visited:
                         queue.append(adj_cell)
-            cells.clear()
             while queue:
                 cell = queue.pop()
                 if (cell[0] < 0 or cell[0] >= len(board)
@@ -90,7 +96,8 @@ class Test(unittest.TestCase):
         ([["o", "a", "a", "n"], ["e", "t", "a", "e"],  # TODO will it handle if (1,0) is an a?
          ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
          ["oath", "pea", "eat", "rain"], ["eat", "oath"]),
-        ([["a", "b"], ["c", "d"]], ["abcb"], [])
+        ([["a", "b"], ["c", "d"]], ["abcb"], []),
+        ([["a"]], ["a"], ["a"])
     ]
 
     def test_findWords(self):
