@@ -44,3 +44,7 @@ class Test(unittest.TestCase):
         sol = Solution()
         for args, expected in self.test_cases:
             assert sol.computeArea(*args) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
