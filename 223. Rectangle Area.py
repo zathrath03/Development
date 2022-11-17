@@ -22,6 +22,14 @@ import unittest
 class Solution:
     def computeArea(self, ax1: int, ay1: int, ax2: int, ay2: int, bx1: int,
                     by1: int, bx2: int, by2: int) -> int:
+        # Find area of each rectangle
+        # - (x2 - x1) * (y2 - y1)
+        # Determine if there is overlap between the rectangles
+        # - bx1 < ax2 < bx2 and ((by1 <= ay1 < by2) or (by1 < ay2 <= by2))
+        # - by1 < ay2 < by2
+        # - bx1 < ax1 < bx2
+        # - by1 < ay1 < by2
+        # If there is overlap, subtract the area of the overlapping rectangle
         return 0
 
 
