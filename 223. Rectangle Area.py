@@ -26,6 +26,11 @@ class Solution:
         # - (x2 - x1) * (y2 - y1) and sum them
         area = (ax2 - ax1) * (ay2 - ay1) + (bx2 - bx1) * (by2 - by1)
         # Determine if there is overlap between the rectangles
+        if (((bx1 < ax2 < bx2 or bx1 < ax1 < bx2)
+                and (by1 <= ay1 < by2 or by1 < ay2 <= by2))
+                or ((by1 < ay2 < by2 or by1 < ay1 < by2)
+                    and (bx1 <= ax1 < bx2) or (bx1 < ax2 <= by2))):
+            print("There's overlap")
         # - (bx1 < ax2 < bx2 or bx1 < ax1 < bx2)
         #     and (by1 <= ay1 < by2) or (by1 < ay2 <= by2)
         # - (by1 < ay2 < by2 or by1 < ay1 < by2)
@@ -37,8 +42,8 @@ class Solution:
 class Test(unittest.TestCase):
     test_cases = [
         ((0, 0, 2, 2, -2, -2, 0, 0), 8),
-        # ((-3, 0, 3, 4, 0, -1, 9, 2), 45),
-        # ((-2, -2, 2, 2, -2, -2, 2, 2), 16)
+        ((-3, 0, 3, 4, 0, -1, 9, 2), 45),
+        ((-2, -2, 2, 2, -2, -2, 2, 2), 16)
     ]
 
     def test_computeArea(self):
