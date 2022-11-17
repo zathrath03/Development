@@ -16,6 +16,22 @@ Constraints:
 """
 
 
+import unittest
+
+
 class Solution:
-    def computeArea(self, ax1: int, ay1: int, ax2: int, ay2: int, bx1: int, by1: int, bx2: int, by2: int) -> int:
+    def computeArea(self, ax1: int, ay1: int, ax2: int, ay2: int, bx1: int,
+                    by1: int, bx2: int, by2: int) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = [
+        ((-3, 0, 3, 4, 0, -1, 9, 2), 45),
+        ((-2, -2, 2, 2, -2, -2, 2, 2), 16)
+    ]
+
+    def test_computeArea(self):
+        sol = Solution()
+        for args, expected in self.test_cases:
+            assert sol.computeArea(*args) == expected
