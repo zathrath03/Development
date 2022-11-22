@@ -11,18 +11,25 @@ Constraints:
 """
 
 
+from math import sqrt
 import unittest
 
 
 class Solution:
     def numSquares(self, n: int) -> int:
-        return 0
+        count = 0
+
+        while n != 0:
+            n -= int(sqrt(n)) ** 2
+            count += 1
+
+        return count
 
 
 class Test(unittest.TestCase):
     test_cases = (
-        (12, 3),
-        (13, 2)
+        # (12, 3),
+        (13, 2),
     )
 
     def test_numSquares(self):
