@@ -18,5 +18,5 @@ entrance will always be an empty cell.
 
 
 class Solution:
-    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+    def nearestExit(self, maze: list[list[str]], entrance: list[int]) -> int:
         return 0
