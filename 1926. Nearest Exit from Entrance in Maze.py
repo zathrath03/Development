@@ -32,29 +32,20 @@ class Solution:
     # type: ignore
     def nearestExit(self, maze: list[list[str]], entrance: list[int]) -> int:
         self.maze = maze
-        # Use a breadth first search
-        # Keep track of visited cells (set) - add entrance
         start: tuple[int, int] = tuple(entrance)
         self.visited = {start}
-        # Add the (entrance, 0) to a deque
         queue: deque[tuple[tuple[int, int], int]] = deque()
         queue.append((start, 0))
-        # While there are items in the queue, pop each cell
         while queue:
             cell, steps = queue.pop()
             row, col = cell
-        # if the cell is not in visited and is adjacent to the end return steps
             if (self.is_exit(cell)):
                 return steps
-        # Find valid adjacent cells and add them to the queue with steps
-            for r_adj, c_adj in ((1, 0), (-1, 0), (0, 1), (-1, 0)):
+            for r_adj, c_adj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                 next_cell = (row + r_adj, col + c_adj)
                 if self.is_valid_cell(next_cell):
                     queue.appendleft((next_cell, steps + 1))
-        # A valid square is within the bounds, has not been visited, and is "."
-        # Add cell to visited and repeat
             self.visited.add(cell)
-        # If we get to an empty queue, return -1
         return -1
 
     def is_exit(self, cell):
