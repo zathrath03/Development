@@ -35,11 +35,11 @@ class Solution:
         maze[entrance[0]][entrance[1]] = "+"
         queue: deque[tuple[list[int], int]] = deque()
         queue.append((entrance, 0))
-        output = -1
+        output = None
 
         while queue:
             output = self.find_exit(queue)
-        return output
+        return output or -1
 
     def find_exit(self, queue):
         directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
