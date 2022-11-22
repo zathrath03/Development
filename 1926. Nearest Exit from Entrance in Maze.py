@@ -24,21 +24,49 @@ entrance will always be an empty cell.
 """
 
 
+from collections import deque
 import unittest
 
 
 class Solution:
+    # type: ignore
     def nearestExit(self, maze: list[list[str]], entrance: list[int]) -> int:
+        self.maze = maze
         # Use a breadth first search
         # Keep track of visited cells (set) - add entrance
+        start: tuple[int, int] = tuple(entrance)
+        self.visited = {start}
         # Add the (entrance, 0) to a deque
+        queue: deque[tuple[tuple[int, int], int]] = deque()
+        queue.append((start, 0))
         # While there are items in the queue, pop each cell
-        # if the cell is not in visited and is adjacent to the end, return steps
+        while queue:
+            cell, steps = queue.pop()
+            row, col = cell
+        # if the cell is not in visited and is adjacent to the end return steps
+            if (self.is_exit(cell)):
+                return steps
         # Find valid adjacent cells and add them to the queue with steps
+            for r_adj, c_adj in ((1, 0), (-1, 0), (0, 1), (-1, 0)):
+                next_cell = (row + r_adj, col + c_adj)
+                if self.is_valid_cell(next_cell):
+                    queue.appendleft((next_cell, steps + 1))
         # A valid square is within the bounds, has not been visited, and is "."
         # Add cell to visited and repeat
+            self.visited.add(cell)
         # If we get to an empty queue, return -1
-        return 0
+        return -1
+
+    def is_exit(self, cell):
+        row, col = cell
+        last_row, last_col = len(self.maze) - 1, len(self.maze[0]) - 1
+        return (cell not in self.visited
+                and (not all(cell) or row == last_row or col == last_col))
+
+    def is_valid_cell(self, cell: tuple[int, int]):
+        row, col = cell
+        return (0 <= row < len(self.maze) and 0 <= col < len(self.maze[0])
+                and cell not in self.visited and self.maze[row][col] == ".")
 
 
 class Test(unittest.TestCase):
