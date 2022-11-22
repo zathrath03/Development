@@ -11,24 +11,30 @@ Constraints:
 """
 
 
+from functools import cache
 from math import sqrt
 import unittest
 
 
 class Solution:
-    def numSquares(self, n: int) -> int:
-        count = 0
+    @cache
+    def numSquares(self, n: int):
+        squares = {i ** 2 for i in range(int(sqrt(n)), 0, -1)}
+        if n in squares:
+            return 0
 
-        while n != 0:
-            n -= int(sqrt(n)) ** 2
-            count += 1
+        count = float('inf')
+
+        for square in squares:
+            count = min(count, 1 + self.numSquares(n - square))
 
         return count
 
 
 class Test(unittest.TestCase):
     test_cases = (
-        # (12, 3),
+        # (9, 1),
+        (12, 3),
         (13, 2),
     )
 
