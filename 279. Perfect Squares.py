@@ -11,6 +11,25 @@ Constraints:
 """
 
 
+import unittest
+
+
 class Solution:
     def numSquares(self, n: int) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        (12, 3),
+        (13, 2)
+    )
+
+    def test_numSquares(self):
+        sol = Solution()
+        for n, expected in self.test_cases:
+            assert sol.numSquares(n) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
