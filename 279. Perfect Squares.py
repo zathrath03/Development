@@ -17,25 +17,31 @@ import unittest
 
 
 class Solution:
-    @cache
-    def numSquares(self, n: int):
+    def numSquares(self, n: int) -> int:
+
+        def is_divided_by(n, count):
+            if count == 1:
+                return n in squares
+
+            for square in squares:
+                if (is_divided_by(n - square, count - 1)):
+                    return True
+
         squares = {i ** 2 for i in range(int(sqrt(n)), 0, -1)}
-        if n in squares:
-            return 0
 
-        count = float('inf')
+        for count in range(1, 4):
+            if is_divided_by(n, count):
+                return count
 
-        for square in squares:
-            count = min(count, 1 + self.numSquares(n - square))
-
-        return count
+        return 4  # Lagrange's four-square theorem shows that 4 is the max
 
 
 class Test(unittest.TestCase):
     test_cases = (
-        # (9, 1),
+        (9, 1),
         (12, 3),
         (13, 2),
+        (31, 4),
     )
 
     def test_numSquares(self):
