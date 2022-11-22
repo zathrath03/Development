@@ -29,35 +29,42 @@ import unittest
 
 
 class Solution:
-    # type: ignore
     def nearestExit(self, maze: list[list[str]], entrance: list[int]) -> int:
         self.maze = maze
-        start: tuple[int, int] = tuple(entrance)
-        self.visited = {start}
-        queue: deque[tuple[tuple[int, int], int]] = deque()
-        queue.append((start, 0))
+
+        maze[entrance[0]][entrance[1]] = "+"
+        queue: deque[tuple[list[int], int]] = deque()
+        queue.append((entrance, 0))
+        output = -1
+
         while queue:
-            cell, steps = queue.pop()
-            row, col = cell
-            if (self.is_exit(cell)):
-                return steps
-            for r_adj, c_adj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                next_cell = (row + r_adj, col + c_adj)
-                if self.is_valid_cell(next_cell):
-                    queue.appendleft((next_cell, steps + 1))
-            self.visited.add(cell)
+            output = self.find_exit(queue)
+        return output
+
+    def find_exit(self, queue):
+        directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
+        cell, steps = queue.pop()
+        row, col = cell
+        for r_adj, c_adj in directions:
+            next_cell = [row + r_adj, col + c_adj]
+            if self.is_valid_cell(next_cell):
+                if self.is_exit(next_cell):
+                    return steps + 1
+                queue.appendleft((next_cell, steps + 1))
+                self.maze[row][col] = "+"
         return -1
 
     def is_exit(self, cell):
         row, col = cell
         last_row, last_col = len(self.maze) - 1, len(self.maze[0]) - 1
-        return (cell not in self.visited
+        return (self.maze[row][col] == "."
                 and (not all(cell) or row == last_row or col == last_col))
 
-    def is_valid_cell(self, cell: tuple[int, int]):
+    def is_valid_cell(self, cell: list[int]):
         row, col = cell
-        return (0 <= row < len(self.maze) and 0 <= col < len(self.maze[0])
-                and cell not in self.visited and self.maze[row][col] == ".")
+        rows, cols = len(self.maze), len(self.maze[0])
+        return (0 <= row < rows and 0 <= col < cols
+                and self.maze[row][col] == ".")
 
 
 class Test(unittest.TestCase):
