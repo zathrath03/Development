@@ -17,6 +17,27 @@ entrance will always be an empty cell.
 """
 
 
+import unittest
+
+
 class Solution:
     def nearestExit(self, maze: list[list[str]], entrance: list[int]) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([["+", "+", ".", "+"], [".", ".", ".", "+"], ["+", "+", "+", "."]],
+         [1, 2], 1),
+        ([["+", "+", "+"], [".", ".", "."], ["+", "+", "+"]], [1, 0], 2),
+        ([[".", "+"]], [0, 0], -1)
+    )
+
+    def test_nearestExit(self):
+        sol = Solution()
+        for maze, entrance, expected in self.test_cases:
+            assert sol.nearestExit(maze, entrance) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
