@@ -26,13 +26,15 @@ class Solution:
         for row in range(len(board)):
             for col in range(len(board[0])):
                 # depth first search to see if the word is at that location
-                if self.is_word_here(row, col):
+                cell = row, col
+                if self.is_word_here(cell, word):
                     return True
 
         return False
 
-    def is_word_here(self, row: int, col: int) -> bool:
-        for char in self.word:
+    def is_word_here(self, cell: tuple[int, int], word: str) -> bool:
+        row, col = cell
+        for char in word:
             if self.board[row][col] == char:
                 queue = self.valid_adjacent_cells(row, col)
                 if not queue:
