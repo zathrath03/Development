@@ -45,13 +45,16 @@ class Solution:
         output = False
         self.used.add(cell)
         queue = self.valid_adjacent_cells(cell)
-        if not queue:
+        if queue:
+            output = self.is_word_in_adjacent_cells(queue, word)
+        if output is False:
             self.used.remove(cell)
-            return False
+        return output
+
+    def is_word_in_adjacent_cells(self, queue, word):
+        output = False
         for next_cell in queue:
             output = self.is_word_here(next_cell, word) or output
-        if not output:
-            self.used.remove(cell)
         return output
 
     def valid_adjacent_cells(self, cell: tuple[int, int]
