@@ -20,6 +20,9 @@ import unittest
 
 class Solution:
     def exist(self, board: list[list[str]], word: str) -> bool:
+        # iterate through each cell in the board
+        # conduct a depth first search to see if the word is at that location
+
         return False
 
 
