@@ -76,6 +76,7 @@ class Test(unittest.TestCase):
          ["A", "D", "E", "E"]], "SEE", True),
         ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
          ["A", "D", "E", "E"]], "ABCB", False),
+        ([["a", "a"], ["a", "a"], ["A", "A"]], "aaaAAa", True)
     )
 
     def test_exist(self):
