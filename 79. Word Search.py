@@ -36,17 +36,22 @@ class Solution:
         row, col = cell
 
         if self.board[row][col] == word[0]:
-            self.used.add(cell)
             if len(word) == 1:
                 return True
-            queue = self.valid_adjacent_cells(cell)
-            if not queue:
-                return False
-            for next_cell in queue:
-                output = self.is_word_here(next_cell, word[1:]) or output
-            if not output:
-                self.used.remove(cell)
+            output = self.check_adjacent_cells(cell, word[1:])
+        return output
 
+    def check_adjacent_cells(self, cell, word):
+        output = False
+        self.used.add(cell)
+        queue = self.valid_adjacent_cells(cell)
+        if not queue:
+            self.used.remove(cell)
+            return False
+        for next_cell in queue:
+            output = self.is_word_here(next_cell, word) or output
+        if not output:
+            self.used.remove(cell)
         return output
 
     def valid_adjacent_cells(self, cell: tuple[int, int]
@@ -76,7 +81,7 @@ class Test(unittest.TestCase):
          ["A", "D", "E", "E"]], "SEE", True),
         ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
          ["A", "D", "E", "E"]], "ABCB", False),
-        ([["a", "a"], ["a", "a"], ["A", "A"]], "aaaAAa", True)
+        ([["a", "a"], ["a", "a"], ["A", "A"]], "aaaAAa", True),
     )
 
     def test_exist(self):
