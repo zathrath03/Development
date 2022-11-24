@@ -21,7 +21,6 @@ import unittest
 class Solution:
     def exist(self, board: list[list[str]], word: str) -> bool:
         self.board = board
-        self.word = word
         for row in range(len(board)):
             for col in range(len(board[0])):
                 cell = row, col
@@ -41,7 +40,7 @@ class Solution:
             output = self.check_adjacent_cells(cell, word[1:])
         return output
 
-    def check_adjacent_cells(self, cell, word):
+    def check_adjacent_cells(self, cell: tuple[int, int], word: str) -> bool:
         output = False
         self.used.add(cell)
         queue = self.valid_adjacent_cells(cell)
@@ -51,7 +50,8 @@ class Solution:
             self.used.remove(cell)
         return output
 
-    def is_word_in_adjacent_cells(self, queue, word):
+    def is_word_in_adjacent_cells(self, queue: list[tuple[int, int]],
+                                  word: str) -> bool:
         output = False
         for next_cell in queue:
             output = self.is_word_here(next_cell, word) or output
@@ -68,7 +68,7 @@ class Solution:
                 output.append(new_cell)
         return output
 
-    def is_valid_cell(self, cell):
+    def is_valid_cell(self, cell: tuple[int, int]) -> bool:
         row, col = cell
         rows, cols = len(self.board), len(self.board[0])
         return cell not in self.used and 0 <= row < rows and 0 <= col < cols
