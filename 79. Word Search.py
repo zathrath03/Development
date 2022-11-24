@@ -15,6 +15,29 @@ board and word consists of only lowercase and uppercase English letters.
 """
 
 
+import unittest
+
+
 class Solution:
     def exist(self, board: list[list[str]], word: str) -> bool:
         return False
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
+         ["A", "D", "E", "E"]], "ABCCED", True),
+        ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
+         ["A", "D", "E", "E"]], "SEE", True),
+        ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
+         ["A", "D", "E", "E"]], "ABCB", False),
+    )
+
+    def test_exist(self):
+        sol = Solution()
+        for board, word, expected in self.test_cases:
+            assert sol.exist(board, word) is expected
+
+
+if __name__ == "__main__":
+    unittest.main()
