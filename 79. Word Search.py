@@ -25,6 +25,7 @@ class Solution:
         for row in range(len(board)):
             for col in range(len(board[0])):
                 cell = row, col
+                self.used = set()
                 if self.is_word_here(cell, word):
                     return True
 
@@ -35,6 +36,7 @@ class Solution:
         row, col = cell
 
         if self.board[row][col] == word[0]:
+            self.used.add(cell)
             if len(word) == 1:
                 return True
             queue = self.valid_adjacent_cells(cell)
@@ -42,8 +44,10 @@ class Solution:
                 return False
             for cell in queue:
                 output = self.is_word_here(cell, word[1:]) or output
+            if not output:
+                self.used.remove(cell)
 
-        return True
+        return output
 
     def valid_adjacent_cells(self, cell: tuple[int, int]
                              ) -> list[tuple[int, int]] | None:
