@@ -42,17 +42,28 @@ class Solution:
             queue = self.valid_adjacent_cells(cell)
             if not queue:
                 return False
-            for cell in queue:
-                output = self.is_word_here(cell, word[1:]) or output
+            for next_cell in queue:
+                output = self.is_word_here(next_cell, word[1:]) or output
             if not output:
                 self.used.remove(cell)
 
         return output
 
     def valid_adjacent_cells(self, cell: tuple[int, int]
-                             ) -> list[tuple[int, int]] | None:
-        output = None
+                             ) -> list[tuple[int, int]]:
+        output = []
+        row, col = cell
+        adjacents = ((1, 0), (-1, 0), (0, 1), (0, -1))
+        for r_adj, c_adj in adjacents:
+            new_cell = (row + r_adj, col + c_adj)
+            if self.is_valid_cell(new_cell):
+                output.append(new_cell)
         return output
+
+    def is_valid_cell(self, cell):
+        row, col = cell
+        rows, cols = len(self.board), len(self.board[0])
+        return cell not in self.used and 0 <= row < rows and 0 <= col < cols
 
 
 class Test(unittest.TestCase):
