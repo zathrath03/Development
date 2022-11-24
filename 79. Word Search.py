@@ -20,10 +20,30 @@ import unittest
 
 class Solution:
     def exist(self, board: list[list[str]], word: str) -> bool:
+        self.board = board
+        self.word = word
         # iterate through each cell in the board
-        # conduct a depth first search to see if the word is at that location
+        for row in range(len(board)):
+            for col in range(len(board[0])):
+                # depth first search to see if the word is at that location
+                if self.is_word_here(row, col):
+                    return True
 
         return False
+
+    def is_word_here(self, row: int, col: int) -> bool:
+        for char in self.word:
+            if self.board[row][col] == char:
+                queue = self.valid_adjacent_cells(row, col)
+                if not queue:
+                    return False
+
+        return True
+
+    def valid_adjacent_cells(self, row: int, col: int
+                             ) -> list[tuple[int, int]] | None:
+        output = None
+        return output
 
 
 class Test(unittest.TestCase):
