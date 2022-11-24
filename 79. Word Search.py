@@ -22,10 +22,8 @@ class Solution:
     def exist(self, board: list[list[str]], word: str) -> bool:
         self.board = board
         self.word = word
-        # iterate through each cell in the board
         for row in range(len(board)):
             for col in range(len(board[0])):
-                # depth first search to see if the word is at that location
                 cell = row, col
                 if self.is_word_here(cell, word):
                     return True
@@ -33,16 +31,21 @@ class Solution:
         return False
 
     def is_word_here(self, cell: tuple[int, int], word: str) -> bool:
+        output = False
         row, col = cell
-        for char in word:
-            if self.board[row][col] == char:
-                queue = self.valid_adjacent_cells(row, col)
-                if not queue:
-                    return False
+
+        if self.board[row][col] == word[0]:
+            if len(word) == 1:
+                return True
+            queue = self.valid_adjacent_cells(cell)
+            if not queue:
+                return False
+            for cell in queue:
+                output = self.is_word_here(cell, word[1:]) or output
 
         return True
 
-    def valid_adjacent_cells(self, row: int, col: int
+    def valid_adjacent_cells(self, cell: tuple[int, int]
                              ) -> list[tuple[int, int]] | None:
         output = None
         return output
@@ -50,6 +53,8 @@ class Solution:
 
 class Test(unittest.TestCase):
     test_cases = (
+        ([["B", "B", "C", "E"], ["S", "F", "C", "S"],
+         ["A", "D", "E", "A"]], "A", True),
         ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
          ["A", "D", "E", "E"]], "ABCCED", True),
         ([["A", "B", "C", "E"], ["S", "F", "C", "S"],
