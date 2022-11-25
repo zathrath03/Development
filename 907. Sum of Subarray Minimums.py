@@ -16,21 +16,21 @@ import unittest
 class Solution:
     MOD = 10**9 + 7
 
-    # TODO Try using two pointers, then just
-    # min between the previous min and the newly added number
     def sumSubarrayMins(self, arr: list[int]) -> int:
         output = 0
-        subarrays = self.generate_subarrays(arr)
-        for subarray in subarrays:
-            output += min(subarray)
+        mins = self.generate_mins(arr)
+        for val in mins:
+            output += val
             output %= self.MOD
         return output
 
-    def generate_subarrays(self, arr: list[int]) -> Iterator[list[int]]:
+    def generate_mins(self, arr: list[int]) -> Iterator[int]:
         length = len(arr)
         for i in range(length):
-            for j in range(1, length - i + 1):
-                yield (arr[i:i+j])
+            last_min = 30000
+            for j in range(length - i):
+                last_min = min(arr[i + j], last_min)
+                yield last_min
 
 
 class Test(unittest.TestCase):
