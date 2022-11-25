@@ -9,12 +9,26 @@ Constraints:
 """
 
 
+from typing import Iterator
 import unittest
 
 
 class Solution:
+    MOD = 10**9 + 7
+
     def sumSubarrayMins(self, arr: list[int]) -> int:
-        return 0
+        output = 0
+        subarrays = self.generate_subarrays(arr)
+        for subarray in subarrays:
+            output += min(subarray)
+            output %= self.MOD
+        return output
+
+    def generate_subarrays(self, arr: list[int]) -> Iterator[list[int]]:
+        length = len(arr)
+        for i in range(length):
+            for j in range(1, length - i + 1):
+                yield (arr[i:i+j])
 
 
 class Test(unittest.TestCase):
