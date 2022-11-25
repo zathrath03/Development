@@ -16,6 +16,8 @@ import unittest
 class Solution:
     MOD = 10**9 + 7
 
+    # TODO Try using two pointers, then just
+    # min between the previous min and the newly added number
     def sumSubarrayMins(self, arr: list[int]) -> int:
         output = 0
         subarrays = self.generate_subarrays(arr)
