@@ -28,6 +28,14 @@ import unittest
 
 class Solution:
     def findWinners(self, matches: list[list[int]]) -> list[list[int]]:
+        # intialize an empty set of winners, losers, and one_loss
+        # iterate through each match
+        # if the winner isn't in losers or one_loss, add to winners
+        # if the loser is in winners, remove from winners
+        # if the loser is in one_loss, remove from one_loss and add to losers
+        # if the loser isn't in one_loss or losers, add to one_loss
+        # convert winners and one_loss to sorted lists
+        # combine winners and one_loss to elements of a list and return
         return [[0]]
 
 
