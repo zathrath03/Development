@@ -28,27 +28,19 @@ import unittest
 
 class Solution:
     def findWinners(self, matches: list[list[int]]) -> list[list[int]]:
-        # intialize an empty set of undefeated, losers, and one_loss
         undefeated, one_loss, losers = set(), set(), set()
-        # iterate through each match
         for winner, loser in matches:
-            # if the winner isn't in losers or one_loss, add to undefeated
             if winner not in losers and winner not in one_loss:
                 undefeated.add(winner)
             if loser in losers:
                 continue
-        # if the loser is in undefeated, remove from undefeated
             if loser in undefeated:
                 undefeated.remove(loser)
-        # if the loser is in one_loss, remove from one_loss and add to losers
             if loser in one_loss:
                 one_loss.remove(loser)
                 losers.add(loser)
-        # if the loser isn't in one_loss or losers, add to one_loss
             else:
                 one_loss.add(loser)
-        # convert undefeated and one_loss to sorted lists
-        # combine undefeated and one_loss to elements of a list and return
         return [sorted(undefeated), sorted(one_loss)]
 
 
