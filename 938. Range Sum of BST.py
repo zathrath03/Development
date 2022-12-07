@@ -21,17 +21,15 @@ class TreeNode:
 
 
 class Solution:
-
     def rangeSumBST(self, root: TreeNode | None, low: int, high: int) -> int:
-        if root and low <= root.val <= high:
-            return (root.val + self.rangeSumBST(root.left, low, high)
-                    + self.rangeSumBST(root.right, low, high))
-        elif root and low > root.val:
-            return self.rangeSumBST(root.right, low, high)
-        elif root and root.val > high:
-            return self.rangeSumBST(root.left, low, high)
-        else:
+        if not root:
             return 0
+        if low > root.val:
+            return self.rangeSumBST(root.right, low, high)
+        if high < root.val:
+            return self.rangeSumBST(root.left, low, high)
+        return (root.val + self.rangeSumBST(root.left, low, high)
+                + self.rangeSumBST(root.right, low, high))
 
 
 class Test(unittest.TestCase):
