@@ -16,9 +16,9 @@ import unittest
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+        self.val: int = val
+        self.left: TreeNode | None = left
+        self.right: TreeNode | None = right
 
 
 class Solution:
