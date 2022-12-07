@@ -10,7 +10,6 @@ The number of nodes in the tree is in the range [1, 2 * 10^4].
 All Node.val are unique.
 """
 
-from typing import Optional
 import unittest
 
 
@@ -22,11 +21,17 @@ class TreeNode:
 
 
 class Solution:
-    total = 0
-    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int
-                    ) -> int:
 
-        return 0
+    def rangeSumBST(self, root: TreeNode | None, low: int, high: int) -> int:
+        if root and low <= root.val <= high:
+            return (root.val + self.rangeSumBST(root.left, low, high)
+                    + self.rangeSumBST(root.right, low, high))
+        elif root and low > root.val:
+            return self.rangeSumBST(root.right, low, high)
+        elif root and root.val > high:
+            return self.rangeSumBST(root.left, low, high)
+        else:
+            return 0
 
 
 class Test(unittest.TestCase):
