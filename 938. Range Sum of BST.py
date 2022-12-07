@@ -32,3 +32,16 @@ class Test(unittest.TestCase):
         ([10, 5, 15, 3, 7, None, 18], 7, 15, 32),
         ([10, 5, 15, 3, 7, 13, 18, 1, None, 6], 6, 10, 23),
     )
+
+    def test_rangeSumBST(self):
+        sol = Solution()
+        for serialized_root, low, high, expected in self.test_cases:
+            root = self.deserialize(serialized_root)
+            assert sol.rangeSumBST(root, low, high) == expected
+
+    def deserialize(self, serialized_root):
+        pass
+
+
+if __name__ == "__main__":
+    unittest.main()
