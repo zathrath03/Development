@@ -40,7 +40,19 @@ class Test(unittest.TestCase):
             assert sol.rangeSumBST(root, low, high) == expected
 
     def deserialize(self, serialized_root):
-        pass
+        if not serialized_root:
+            return None
+        nodes = [None if val is None else TreeNode(int(val))
+                 for val in serialized_root]
+        kids = nodes[::-1]
+        root = kids.pop()
+        for node in nodes:
+            if node:
+                if kids:
+                    node.left = kids.pop()
+                if kids:
+                    node.right = kids.pop()
+        return root
 
 
 if __name__ == "__main__":
