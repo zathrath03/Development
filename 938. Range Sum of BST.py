@@ -11,6 +11,7 @@ All Node.val are unique.
 """
 
 from typing import Optional
+import unittest
 
 
 class TreeNode:
@@ -24,3 +25,10 @@ class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int
                     ) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([10, 5, 15, 3, 7, None, 18], 7, 15, 32),
+        ([10, 5, 15, 3, 7, 13, 18, 1, None, 6], 6, 10, 23),
+    )
