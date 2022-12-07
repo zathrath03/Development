@@ -22,8 +22,10 @@ class TreeNode:
 
 
 class Solution:
+    total = 0
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int
                     ) -> int:
+
         return 0
 
 
@@ -34,8 +36,8 @@ class Test(unittest.TestCase):
     )
 
     def test_rangeSumBST(self):
-        sol = Solution()
         for serialized_root, low, high, expected in self.test_cases:
+            sol = Solution()
             root = self.deserialize(serialized_root)
             assert sol.rangeSumBST(root, low, high) == expected
 
