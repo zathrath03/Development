@@ -53,7 +53,7 @@ class Solution:
         while q:
             node = q.pop()
             if (not node.left and not node.right
-                    and node.val != leafs1.popleft()):
+                    and (not leafs1 or node.val != leafs1.popleft())):
                 return False
             if node.left:
                 q.append(node.left)
