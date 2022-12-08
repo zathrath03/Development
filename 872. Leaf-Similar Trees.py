@@ -68,10 +68,11 @@ class Solution:
 
 class Test(unittest.TestCase):
     test_cases = (
-        # ([3, 5, 1, 6, 2, 9, 8, None, None, 7, 4], [
-        #  3, 5, 1, 6, 7, 4, 2, None, None, None, None, None, None, 9, 8], True),
-        # ([1, 2, 3], [1, 3, 2], False),
-        # ([4, 2, 6, 1, 3, 5, 7], [4, 2, 6, None, 3, 5, 7], False),
+        ([3, 5, 1, 6, 2, 9, 8, None, None, 7, 4],
+         [3, 5, 1, 6, 7, 4, 2, None, None, None, None, None, None, 9, 8],
+         True),
+        ([1, 2, 3], [1, 3, 2], False),
+        ([4, 2, 6, 1, 3, 5, 7], [4, 2, 6, None, 3, 5, 7], False),
         ([4, 2, 6, None, 3, 5, 7], [4, 2, 6, 1, 3, 5, 7], False),
     )
 
