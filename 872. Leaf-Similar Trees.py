@@ -22,6 +22,7 @@ Both of the given trees will have values in the range [0, 200].
 """
 
 
+from collections import deque
 import unittest
 
 
@@ -35,6 +36,30 @@ class TreeNode:
 class Solution:
     def leafSimilar(self, root1: TreeNode | None, root2: TreeNode | None
                     ) -> bool:
+        if root1 is None or root2 is None:
+            return False
+        q = [root1]
+        leafs1: deque[int] = deque()
+        while q:
+            node = q.pop()
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+            if not node.left and not node.right:
+                leafs1.append(node.val)
+
+        q = [root2]
+        while q:
+            node = q.pop()
+            if (not node.left and not node.right
+                    and node.val != leafs1.popleft()):
+                return False
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+
         return True
 
 
