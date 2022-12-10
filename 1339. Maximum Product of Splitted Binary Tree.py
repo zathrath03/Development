@@ -65,7 +65,7 @@ class Solution:
                 product = parent_val * left_val
                 node = node.left
 
-        return last_product
+        return last_product % (10 ** 9 + 7)
 
 
 class Test(unittest.TestCase):
