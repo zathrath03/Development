@@ -23,8 +23,27 @@ class TreeNode:
 
 
 class Solution:
-    def maxAncestorDiff(self, root: TreeNode | None, max_diff=0) -> int:
-        return 0
+    def maxAncestorDiff(self, root: TreeNode | None, max_ancestor=None,
+                        min_ancestor=None, max_diff=0) -> int:
+        if not root:
+            return 0
+        if max_ancestor and min_ancestor:
+            max_diff = max(abs(root.val - max_ancestor),
+                           abs(root.val - min_ancestor), max_diff)
+            if root.val > max_ancestor:
+                max_ancestor = root.val
+            elif root.val < min_ancestor:
+                min_ancestor = root.val
+        else:
+            max_ancestor = root.val
+            min_ancestor = root.val
+
+        left_max_diff = self.maxAncestorDiff(
+            root.left, max_ancestor, min_ancestor, max_diff)
+        right_max_diff = self.maxAncestorDiff(
+            root.right, max_ancestor, min_ancestor, max_diff)
+
+        return max(max_diff, left_max_diff, right_max_diff)
 
 
 class Test(unittest.TestCase):
