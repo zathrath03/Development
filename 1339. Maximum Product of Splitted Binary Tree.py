@@ -43,7 +43,13 @@ class Solution:
         #  its subtree
         # Traverse the tree, taking the product of adjacent nodes and return
         #  the highest product
+        def subtree_sum(root: TreeNode | None) -> int:
+            if root is None:
+                return 0
+            root.val += subtree_sum(root.left) + subtree_sum(root.right)
+            return root.val
 
+        subtree_sum(root)
         return 0
 
 
