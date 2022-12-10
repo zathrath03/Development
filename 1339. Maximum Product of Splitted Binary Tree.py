@@ -58,13 +58,24 @@ class Solution:
             parent_val = left_val + root.val
             product = last_product = parent_val * right_val
             node = root.right
-        else:
+        else:  # TODO handle when the subtree sums are equal
             parent_val = right_val + root.val
             product = last_product = left_val * parent_val
             node = root.left
 
-        while product >= last_product:
-            pass
+        while node and product >= last_product:
+            last_product = product
+            left_val = node.left.val if node.left else 0
+            right_val = node.right.val if node.right else 0
+            if left_val < right_val:
+                parent_val = left_val + node.val
+                product = parent_val * right_val
+                node = node.right
+            else:
+                parent_val = right_val + node.val
+                product = left_val * parent_val
+                node = node.left
+
         return last_product
 
 
