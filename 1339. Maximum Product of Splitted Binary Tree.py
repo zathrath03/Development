@@ -43,6 +43,9 @@ class Solution:
         #  its subtree
         # Traverse the tree, taking the product of adjacent nodes and return
         #  the highest product
+        if root is None:
+            return 0
+
         def subtree_sum(root: TreeNode | None) -> int:
             if root is None:
                 return 0
@@ -91,7 +94,7 @@ class Test(unittest.TestCase):
             root = self.deserialize(root)
             assert sol.maxProduct(root) == expected
 
-    def deserialize(self, serialized_root):
+    def deserialize(self, serialized_root: list[int]) -> TreeNode | None:
         if not serialized_root:
             return None
         nodes = [None if val is None else TreeNode(int(val))
