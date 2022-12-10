@@ -20,5 +20,5 @@ class TreeNode:
 
 
 class Solution:
-    def maxAncestorDiff(self, root: TreeNode | None) -> int:
+    def maxAncestorDiff(self, root: TreeNode | None, max_diff=0) -> int:
         return 0
