@@ -27,22 +27,6 @@ class TreeNode:
 
 class Solution:
     def maxProduct(self, root: TreeNode | None) -> int:
-        # Sum the left subtree
-        # Sum the right subtree
-        # Add root's value to the smaller total
-        # Calculate and store the product of the trees
-        # Traverse the tree in the direction of the larger total
-        # Subtract the node's value from the larger total and add it to the
-        #  smaller total
-        # Calculate the product of the trees
-        # If the product went down, return the last product and we're done
-        # Otherwise, determine which branch below to traverse (How?) and repeat
-
-        # OR
-        # Do a bottom up search and replace each node's value with the sum of
-        #  its subtree
-        # Traverse the tree, taking the product of adjacent nodes and return
-        #  the highest product
         if root is None:
             return 0
 
@@ -61,7 +45,7 @@ class Solution:
             parent_val = left_val + root.val
             product = last_product = parent_val * right_val
             node = root.right
-        else:  # TODO handle when the subtree sums are equal
+        else:
             parent_val = right_val + root.val
             product = last_product = left_val * parent_val
             node = root.left
