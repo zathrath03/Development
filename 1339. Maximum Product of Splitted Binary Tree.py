@@ -26,7 +26,7 @@ class TreeNode:
 
 
 class Solution:
-    def maxProduct(self, root: TreeNode | None) -> int:
+    def maxProduct(self, root: TreeNode) -> int:
         # Sum the left subtree
         # Sum the right subtree
         # Add root's value to the smaller total
@@ -49,8 +49,23 @@ class Solution:
             root.val += subtree_sum(root.left) + subtree_sum(root.right)
             return root.val
 
-        subtree_sum(root)
-        return 0
+        subtree_sum(root.left)
+        subtree_sum(root.right)
+
+        left_val = root.left.val if root.left else 0
+        right_val = root.right.val if root.right else 0
+        if left_val < right_val:
+            parent_val = left_val + root.val
+            product = last_product = parent_val * right_val
+            node = root.right
+        else:
+            parent_val = right_val + root.val
+            product = last_product = left_val * parent_val
+            node = root.left
+
+        while product >= last_product:
+            pass
+        return last_product
 
 
 class Test(unittest.TestCase):
