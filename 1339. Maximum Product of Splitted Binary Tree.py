@@ -39,33 +39,43 @@ class Solution:
         subtree_sum(root.left)
         subtree_sum(root.right)
 
+        parent_val, product, node = self.initialize_loop(root)
+        last_product = product
+
+        while node and product >= last_product:
+            last_product = product
+            parent_val, product, node = self.product_of_parent_and_subtree(
+                node, parent_val)
+
+        return last_product % (10 ** 9 + 7)
+
+    def product_of_parent_and_subtree(self, node: TreeNode, parent_val):
+        left_val = node.left.val if node.left else 0
+        right_val = node.right.val if node.right else 0
+        node_val = node.val - left_val - right_val
+        parent_val += node_val
+        if left_val < right_val:
+            parent_val += left_val
+            product = parent_val * right_val
+            node = node.right  # type: ignore
+        else:
+            parent_val += right_val
+            product = parent_val * left_val
+            node = node.left  # type: ignore
+        return parent_val, product, node
+
+    def initialize_loop(self, root: TreeNode):
         left_val = root.left.val if root.left else 0
         right_val = root.right.val if root.right else 0
         if left_val < right_val:
             parent_val = left_val + root.val
-            product = last_product = parent_val * right_val
+            product = parent_val * right_val
             node = root.right
         else:
             parent_val = right_val + root.val
-            product = last_product = left_val * parent_val
+            product = left_val * parent_val
             node = root.left
-
-        while node and product >= last_product:
-            last_product = product
-            left_val = node.left.val if node.left else 0
-            right_val = node.right.val if node.right else 0
-            node_val = node.val - left_val - right_val
-            parent_val += node_val
-            if left_val < right_val:
-                parent_val += left_val
-                product = parent_val * right_val
-                node = node.right
-            else:
-                parent_val += right_val
-                product = parent_val * left_val
-                node = node.left
-
-        return last_product % (10 ** 9 + 7)
+        return parent_val, product, node
 
 
 class Test(unittest.TestCase):
