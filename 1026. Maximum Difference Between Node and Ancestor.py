@@ -27,7 +27,7 @@ class Solution:
                         min_ancestor=None, max_diff=0) -> int:
         if not root:
             return 0
-        if max_ancestor and min_ancestor:
+        if max_ancestor is not None and min_ancestor is not None:
             max_diff = max(abs(root.val - max_ancestor),
                            abs(root.val - min_ancestor), max_diff)
             if root.val > max_ancestor:
@@ -48,8 +48,8 @@ class Solution:
 
 class Test(unittest.TestCase):
     test_cases = (
-        ([8, 3, 10, 1, 6, None, 14, None, None, 4, 7, 13], 7),
-        ([1, None, 2, None, 0, 3], 3,)
+        # ([8, 3, 10, 1, 6, None, 14, None, None, 4, 7, 13], 7),
+        ([1, None, 2, None, 0, 3], 3),
     )
 
     def test_maxAncestorDiff(self):
