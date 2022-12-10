@@ -30,14 +30,8 @@ class Solution:
         if root is None:
             return 0
 
-        def subtree_sum(root: TreeNode | None) -> int:
-            if root is None:
-                return 0
-            root.val += subtree_sum(root.left) + subtree_sum(root.right)
-            return root.val
-
-        subtree_sum(root.left)
-        subtree_sum(root.right)
+        self.subtree_sum(root.left)
+        self.subtree_sum(root.right)
 
         parent_val, product, node = self.initialize_loop(root)
         last_product = product
@@ -48,6 +42,12 @@ class Solution:
                 node, parent_val)
 
         return last_product % (10 ** 9 + 7)
+
+    def subtree_sum(self, root: TreeNode | None) -> int:
+        if root is None:
+            return 0
+        root.val += self.subtree_sum(root.left) + self.subtree_sum(root.right)
+        return root.val
 
     def product_of_parent_and_subtree(self, node: TreeNode, parent_val):
         left_val = node.left.val if node.left else 0
