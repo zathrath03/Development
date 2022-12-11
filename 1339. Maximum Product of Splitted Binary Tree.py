@@ -53,13 +53,12 @@ class Solution:
         left_val = node.left.val if node.left else 0
         right_val = node.right.val if node.right else 0
         node_val = node.val - left_val - right_val
-        parent_val += node_val
         if left_val < right_val:
-            parent_val += left_val
+            parent_val += left_val + node_val
             product = parent_val * right_val
             node = node.right  # type: ignore
         else:
-            parent_val += right_val
+            parent_val += right_val + node_val
             product = parent_val * left_val
             node = node.left  # type: ignore
         return parent_val, product, node
