@@ -21,18 +21,19 @@ import unittest
 class Solution:
     def countComponents(self, n: int, edges: list[list[int]]) -> int:
         components: list[set[int]] = [set(edge) for edge in edges]
-        # added_to_component = False
-        # for node1, node2 in edges:
-        #     for component in components:
-        #         if node1 in component or node2 in component:
-        #             component.add(node1)
-        #             component.add(node2)
-        #             added_to_component = True
-        #     if not added_to_component:
-        #         new_component = {node1, node2}
-        #         components.append(new_component)
-        #     added_to_component = False
 
+        self.consolidate_components(components)
+        num_free_nodes = self.find_number_of_free_nodes(n, components)
+
+        return len(components) + num_free_nodes
+
+    def find_number_of_free_nodes(self, n, components):
+        number_of_nodes_in_components = sum(
+            [len(component) for component in components])
+        free_nodes = n - number_of_nodes_in_components
+        return free_nodes
+
+    def consolidate_components(self, components):
         to_delete = []
         for i, component in enumerate(components):
             for other_component in components[i+1:]:
@@ -44,12 +45,6 @@ class Solution:
 
         for i in reversed(to_delete):
             del components[i]
-
-        number_of_nodes_in_components = sum(
-            [len(component) for component in components])
-        free_nodes = n - number_of_nodes_in_components
-
-        return len(components) + free_nodes
 
 
 class Test(unittest.TestCase):
