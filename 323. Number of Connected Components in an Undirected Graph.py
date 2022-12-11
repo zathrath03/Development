@@ -35,6 +35,7 @@ class Test(unittest.TestCase):
         sol = Solution()
         for n, edges, expected in self.test_cases:
             assert sol.countComponents(n, edges) == expected
+            print(f"passed test n={n}, edges={edges}")
 
 
 if __name__ == "__main__":
