@@ -15,6 +15,27 @@ There are no repeated edges.
 """
 
 
+import unittest
+
+
 class Solution:
     def countComponents(self, n: int, edges: list[list[int]]) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        (5, [[0, 1], [1, 2], [3, 4]], 2),
+        (5, [[0, 1], [1, 2], [2, 3], [3, 4]], 1),
+        (4, [[2, 3], [1, 2], [1, 3]], 2),
+        (4, [[0, 1], [2, 3], [1, 2]], 1),
+    )
+
+    def test_countComponents(self):
+        sol = Solution()
+        for n, edges, expected in self.test_cases:
+            assert sol.countComponents(n, edges) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
