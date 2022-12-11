@@ -20,7 +20,19 @@ import unittest
 
 class Solution:
     def countComponents(self, n: int, edges: list[list[int]]) -> int:
-        return 0
+        components: list[set[int]] = []
+        added_to_component = False
+        for node1, node2 in edges:
+            for component in components:
+                if node1 in component or node2 in component:
+                    component.add(node1)
+                    component.add(node2)
+                    added_to_component = True
+            if not added_to_component:
+                new_component = {node1, node2}
+                components.append(new_component)
+            added_to_component = False
+        return len(components)
 
 
 class Test(unittest.TestCase):
