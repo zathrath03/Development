@@ -32,7 +32,19 @@ class Solution:
                 new_component = {node1, node2}
                 components.append(new_component)
             added_to_component = False
-        return len(components)
+
+        for i, component in enumerate(components):
+            for other_component in components[i+1:]:
+                if component.isdisjoint(other_component):
+                    continue
+                other_component |= component
+                del components[i]
+                break
+
+        number_of_nodes_in_components = sum(
+            [len(component) for component in components])
+        free_nodes = n - number_of_nodes_in_components
+        return len(components) + free_nodes
 
 
 class Test(unittest.TestCase):
