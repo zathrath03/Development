@@ -33,17 +33,22 @@ class Solution:
                 components.append(new_component)
             added_to_component = False
 
+        to_delete = []
         for i, component in enumerate(components):
             for other_component in components[i+1:]:
                 if component.isdisjoint(other_component):
                     continue
                 other_component |= component
-                del components[i]
+                to_delete.append(i)
                 break
+
+        for i in reversed(to_delete):
+            del components[i]
 
         number_of_nodes_in_components = sum(
             [len(component) for component in components])
         free_nodes = n - number_of_nodes_in_components
+
         return len(components) + free_nodes
 
 
@@ -54,7 +59,7 @@ class Test(unittest.TestCase):
         (4, [[2, 3], [1, 2], [1, 3]], 2),
         (4, [[0, 1], [2, 3], [1, 2]], 1),
         (10, [[5, 6], [0, 2], [1, 7], [5, 9], [1, 8],
-         [3, 4], [0, 6], [0, 7], [0, 3], [8, 9]], 1)
+         [3, 4], [0, 6], [0, 7], [0, 3], [8, 9]], 1),
     )
 
     def test_countComponents(self):
