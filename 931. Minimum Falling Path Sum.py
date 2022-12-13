@@ -20,7 +20,13 @@ import unittest
 
 class Solution:
     def minFallingPathSum(self, matrix: list[list[int]]) -> int:
-        min_path_sum = inf
+        n = len(matrix)
+        window_ptrs = [(0, i+1) for i in range(n)]
+        min_per_window = [
+            min(matrix[row][window_ptrs[row][0]:window_ptrs[row][1]])
+            for row in range(n)
+        ]
+        min_path_sum = sum(min_per_window)
 
         # Conceptually, I want to do a single pass with a stair-stepped
         # Pyramid. Each row will contain one or two more elements (depending
