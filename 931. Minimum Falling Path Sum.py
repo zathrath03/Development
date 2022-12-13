@@ -20,13 +20,13 @@ import unittest
 
 class Solution:
     def minFallingPathSum(self, matrix: list[list[int]]) -> int:
+        MAX_LENGTH = MAX_ELEMENT = 100
         n = len(matrix)
-        window_ptrs = [(0, i+1) for i in range(n)]
+        window_ptrs = [[-i, i+1] for i in range(n)]
         min_per_window = [
-            min(matrix[row][window_ptrs[row][0]:window_ptrs[row][1]])
-            for row in range(n)
+            min(matrix[row][window_ptrs[row][0]:window_ptrs[row][1]]) for row in range(n)
         ]
-        min_path_sum = sum(min_per_window)
+        min_path_sum = MAX_LENGTH * MAX_ELEMENT + 1
 
         # Conceptually, I want to do a single pass with a stair-stepped
         # Pyramid. Each row will contain one or two more elements (depending
@@ -41,10 +41,24 @@ class Solution:
         # Once we have the mins for each row's windows, sum those mins.
         # If the sum is smaller than the min_path_sum, save as min_path_sum
         # Repeat until all first row elements are exhausted
-        for first_element in matrix[0]:
-            pass
 
-        return 0
+        for i in range(n):
+            min_path_sum = min(min_path_sum, sum(min_per_window))
+            lft_ptr = max(window_ptrs[i][0], 0)
+            rgt_ptr = min(window_ptrs[i][1], n - 1)
+            # update the window's min with the next ele from the right
+            min_per_window[i] = min(min_per_window[i], matrix[i][rgt_ptr])
+            # slide the right edge of the window
+            window_ptrs[i][1] += 1
+            # get the new min if the old min is about to leave the window
+            if window_ptrs[i][0] == min_per_window[i]:
+                # TODO there has to be a better way to do this without min()
+                min_per_window[i] = min(matrix[i][lft_ptr:rgt_ptr])
+            # slide the left edge of the window
+            window_ptrs[i][0] += 1
+
+        min_path_sum = min(min_path_sum, sum(min_per_window))
+        return min_path_sum
 
 
 class Test(unittest.TestCase):
