@@ -14,11 +14,30 @@ n == matrix.length == matrix[i].length
 """
 
 
+from math import inf
 import unittest
 
 
 class Solution:
     def minFallingPathSum(self, matrix: list[list[int]]) -> int:
+        min_path_sum = inf
+
+        # Conceptually, I want to do a single pass with a stair-stepped
+        # Pyramid. Each row will contain one or two more elements (depending
+        # on whether or not we're against a boundry) from the previous row.
+        # Treat it like a sliding window in each row where left and right
+        # pointers are one column wider than the previous row
+        # Keep track of the min in each row's window (and the second min?)
+        # When we slide the window, if the element we gained from the right
+        # is smaller than the min, update the min for that row's window.
+        # If we slide the window off of the min, update the min to the second
+        # min.
+        # Once we have the mins for each row's windows, sum those mins.
+        # If the sum is smaller than the min_path_sum, save as min_path_sum
+        # Repeat until all first row elements are exhausted
+        for first_element in matrix[0]:
+            pass
+
         return 0
 
 
