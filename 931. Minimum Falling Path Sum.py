@@ -14,6 +14,26 @@ n == matrix.length == matrix[i].length
 """
 
 
+import unittest
+
+
 class Solution:
     def minFallingPathSum(self, matrix: list[list[int]]) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([[2, 1, 3], [6, 5, 4], [7, 8, 9]], 13),
+        ([[-19, 57], [-40, -5]], -59),
+    )
+
+    def test_minFallingPathSum(self):
+        sol = Solution()
+        for matrix, expected in self.test_cases:
+            assert sol.minFallingPathSum(matrix) == expected
+            print(f"Test case {matrix} passed")
+
+
+if __name__ == "__main__":
+    unittest.main()
