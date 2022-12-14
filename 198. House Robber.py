@@ -41,7 +41,7 @@ class Solution:
             profit["three_houses_back"] = profit["two_houses_back"]
             profit["two_houses_back"] = profit["last_house"]
             profit["last_house"] = this_house_total
-        return profit["last_house"]
+        return max(profit["last_house"], profit["two_houses_back"])
 
 
 class Test(unittest.TestCase):
