@@ -15,6 +15,26 @@ Constraints:
 """
 
 
+import unittest
+
+
 class Solution:
     def rob(self, nums: list[int]) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([1, 2, 3, 1], 4),
+        ([2, 7, 9, 3, 1], 12),
+    )
+
+    def test_rob(self):
+        sol = Solution()
+        for nums, expected in self.test_cases:
+            assert sol.rob(nums) == expected
+            print(f"test case {nums} passed")
+
+
+if __name__ == "__main__":
+    unittest.main()
