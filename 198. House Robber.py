@@ -20,28 +20,10 @@ import unittest
 
 class Solution:
     def rob(self, nums: list[int]) -> int:
-        n = len(nums)
-        if n == 1:
-            return nums[0]
-        if n == 2:
-            return max(nums)
-        if n == 3:
-            return max(nums[0] + nums[2], nums[1])
-        profit = {
-            "three_houses_back": nums[0],
-            "two_houses_back": nums[1],
-            "last_house": nums[2] + nums[0]
-        }
-
-        for i in range(3, n):
-            this_house_total = (
-                nums[i]
-                + max(profit["two_houses_back"], profit["three_houses_back"])
-            )
-            profit["three_houses_back"] = profit["two_houses_back"]
-            profit["two_houses_back"] = profit["last_house"]
-            profit["last_house"] = this_house_total
-        return max(profit["last_house"], profit["two_houses_back"])
+        prev = curr = 0
+        for num in nums:
+            prev, curr = curr, max(num + prev, curr)
+        return curr
 
 
 class Test(unittest.TestCase):
