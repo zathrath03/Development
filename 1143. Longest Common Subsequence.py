@@ -22,24 +22,23 @@ import unittest
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        if len(text2) > len(text1):
+        if len(text2) < len(text1):
             text1, text2 = text2, text1
+        len1 = len(text1)
+        len2 = len(text2)
 
-        char_index_map = defaultdict(list)
-        for index, char in enumerate(text1):
-            char_index_map[char].append(index)
+        previous = [0] * (len1 + 1)
+        current = [0] * (len1 + 1)
 
-        subsequence_length = max_subsequence_length = 0
-        last_index = -1
-        for i, char in enumerate(text2):
-            if char not in char_index_map:
-                continue
-            if index := next((index for index in char_index_map[char]
-                              if index > last_index), False):
-                subsequence_length += 1
-                last_index = index
-            else:
-                pass
+        for col in range(len2 - 1, -1, -1):
+            for row in range(len1 - 1, -1, -1):
+                if text2[col] == text1[row]:
+                    current[row] = 1 + previous[row + 1]
+                else:
+                    current[row] = max(previous[row], current[row + 1])
+            previous, current = current, previous
+
+        return previous[0]
 
 
 class Test(unittest.TestCase):
@@ -55,4 +54,8 @@ class Test(unittest.TestCase):
         sol = Solution()
         for text1, text2, expected in self.test_cases:
             assert sol.longestCommonSubsequence(text1, text2) == expected
-            print(f"case {text1}, {text2} passed")
+            print(f'case "{text1}", "{text2}" passed')
+
+
+if __name__ == "__main__":
+    unittest.main()
