@@ -16,14 +16,30 @@ text1 and text2 consist of only lowercase English characters.
 """
 
 
+from collections import defaultdict
 import unittest
 
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        return 0
+        if len(text2) > len(text1):
+            text1, text2 = text2, text1
 
-# use a dict of the longer string of {char: index}
+        char_index_map = defaultdict(list)
+        for index, char in enumerate(text1):
+            char_index_map[char].append(index)
+
+        subsequence_length = max_subsequence_length = 0
+        last_index = -1
+        for i, char in enumerate(text2):
+            if char not in char_index_map:
+                continue
+            if index := next((index for index in char_index_map[char]
+                              if index > last_index), False):
+                subsequence_length += 1
+                last_index = index
+            else:
+                pass
 
 
 class Test(unittest.TestCase):
