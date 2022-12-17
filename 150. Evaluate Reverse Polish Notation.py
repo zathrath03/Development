@@ -23,7 +23,7 @@ import unittest
 class Solution:
     def evalRPN(self, tokens: list[str]) -> int:
         # initialize a stack
-        stack = []
+        stack: list[int] = []
         # initialize a set of operators
         operators = {"+", "-", "*", "/"}
         # loop through each token in tokens
