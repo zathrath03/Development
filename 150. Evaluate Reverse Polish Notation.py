@@ -22,6 +22,12 @@ import unittest
 
 class Solution:
     def evalRPN(self, tokens: list[str]) -> int:
+        # initialize a stack
+        # initialize a set of operators
+        # loop through each token in tokens
+        # if it is not an operator, push it onto the stack
+        # if it is an operator, pop two values, execute the operation, push result
+        # return the last item on the stack
         return 0
 
 
