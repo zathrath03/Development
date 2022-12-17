@@ -17,6 +17,28 @@ range [-200, 200].
 """
 
 
+import unittest
+
+
 class Solution:
     def evalRPN(self, tokens: list[str]) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        (["2", "1", "+", "3", "*"], 9),
+        (["4", "13", "5", "/", "+"], 6),
+        (["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"],
+         22)
+    )
+
+    def test_evalRPN(self):
+        sol = Solution()
+        for tokens, expected in self.test_cases:
+            assert sol.evalRPN(tokens) == expected
+            print(f"{tokens} passed")
+
+
+if __name__ == "__main__":
+    unittest.main()
