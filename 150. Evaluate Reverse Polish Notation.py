@@ -32,13 +32,13 @@ class Solution:
             # if it is an operator, pop two values, execute the operation, push result
             if token in operators:
                 token = self.process_operator(stack, token)
-            stack.append(token)
+            stack.append(int(token))
         # return the last item on the stack
         return stack[0]
 
     def process_operator(self, stack, token):
-        num2 = int(stack.pop())
-        num1 = int(stack.pop())
+        num2 = stack.pop()
+        num1 = stack.pop()
 
         match token:
             case "+":
@@ -49,6 +49,8 @@ class Solution:
                 return num1 * num2
             case "/":
                 return num1 // num2
+            case _:
+                raise LookupError
 
 
 class Test(unittest.TestCase):
