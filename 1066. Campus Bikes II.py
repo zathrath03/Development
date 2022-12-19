@@ -22,7 +22,28 @@ All the workers and the bikes locations are unique.
 """
 
 
+import unittest
+
+
 class Solution:
     def assignBikes(self, workers: list[list[int]], bikes: list[list[int]]
                     ) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([[0, 0], [2, 1]], [[1, 2], [3, 3]], 6),
+        ([[0, 0], [1, 1], [2, 0]], [[1, 0], [2, 2], [2, 1]], 4),
+        ([[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], [
+         [0, 999], [1, 999], [2, 999], [3, 999], [4, 999]], 4995),
+    )
+
+    def test_assignBikes(self):
+        sol = Solution()
+        for workers, bikes, expected in self.test_cases:
+            assert sol.assignBikes(workers, bikes) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
