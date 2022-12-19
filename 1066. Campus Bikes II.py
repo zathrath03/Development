@@ -23,35 +23,107 @@ All the workers and the bikes locations are unique.
 
 
 from itertools import permutations
-from math import inf
 import unittest
 
 
+# class Solution:
+#     def assignBikes(self, workers: list[list[int]], bikes: list[list[int]]
+#                     ) -> int:
+#         def manhattan(p1, p2):
+#             return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+#         MAX_DISTANCE = 2000 * len(workers)
+
+#         # Naive approach
+#         # For each worker, calculate and store the distance to each bike
+#         # Store each distance in a 2D list
+#         distances: list[list[int]] = []
+#         for worker in workers:
+#             worker_distances: list[int] = []
+#             for bike in bikes:
+#                 worker_distances.append(manhattan(worker, bike))
+#             distances.append(worker_distances)
+
+#         # Find the minimum total sum by finding every permutaton of distances
+#         min_sum = MAX_DISTANCE
+#         for permutation in permutations(range(len(distances))):
+#             total = 0
+#             for row, col in zip(distances, permutation):
+#                 total += row[col]
+#             min_sum = min(min_sum, total)
+#         return min_sum
+
+
 class Solution:
-    def assignBikes(self, workers: list[list[int]], bikes: list[list[int]]
-                    ) -> int:
-        def manhattan(p1, p2):
-            return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+    def assignBikes(self, workers, bikes):
         MAX_DISTANCE = 2000 * len(workers)
+        m, n = len(workers), len(bikes)
+        # 0 ~ m - 1  workers
+        # m ~ m + n - 1 bikes
+        s = m + n  # dummy source
+        t = s + 1  # dummy sink
+        num_nodes = m + n + 2
+        g = [{} for _ in range(num_nodes)]
+        prevv: list[int] = [None] * num_nodes  # type: ignore
 
-        # Naive approach
-        # For each worker, calculate and store the distance to each bike
-        # Store each distance in a 2D list
-        distances: list[list[int]] = []
-        for worker in workers:
-            worker_distances: list[int] = []
-            for bike in bikes:
-                worker_distances.append(manhattan(worker, bike))
-            distances.append(worker_distances)
+        def add_edge(from_node: int, to_node: int, cap: int, cost: int
+                     ) -> None:
+            g[from_node][to_node] = [cap, cost]
+            # reverse edge
+            g[to_node][from_node] = [0, -cost]
 
-        # Find the minimum total sum by finding every permutaton of distances
-        min_sum = MAX_DISTANCE
-        for permutation in permutations(range(len(distances))):
-            total = 0
-            for row, col in zip(distances, permutation):
-                total += row[col]
-            min_sum = min(min_sum, total)
-        return min_sum
+        # find minimum cost to flow f from s to t
+        def min_cost_flow(s: int, t: int, f: int) -> int:
+            res = 0
+            # Bellman-Ford
+            while f > 0:
+                dist = [MAX_DISTANCE] * (m + n + 2)
+                dist[s] = 0
+                update = True
+                while update:
+                    update = False
+                    for v in range(num_nodes):
+                        if dist[v] == MAX_DISTANCE:
+                            continue
+                        for node in g[v]:
+                            edge = g[v][node]
+                            # if there is capacity left on this edge and
+                            # it costs less to go to the next node from here
+                            if edge[0] > 0 and dist[node] > dist[v] + edge[1]:
+                                dist[node] = dist[v] + edge[1]
+                                prevv[node] = v
+                                update = True
+                assert dist[t] != MAX_DISTANCE
+                d = f
+                v = t
+                while v != s:
+                    d = min(d, g[prevv[v]][v][0])
+                    v = prevv[v]
+                f -= d
+                res += d * dist[t]
+                v = t
+
+                while v != s:
+                    # remove capacity from used edge
+                    edge = g[prevv[v]][v]
+                    edge[0] -= d
+                    # add capacity to reverse edge
+                    edge = g[v][prevv[v]]
+                    edge[0] += d
+                    v = prevv[v]
+            return res
+
+        for i in range(m):
+            for j in range(n):
+                x1, y1 = workers[i]
+                x2, y2 = bikes[j]
+                c = abs(x1 - x2) + abs(y1 - y2)
+                add_edge(i, m + j, 1, c)
+        for i in range(m):
+            add_edge(s, i, 1, 0)
+        for i in range(n):
+            add_edge(m + i, t, 1, 0)
+
+        return min_cost_flow(s, t, m)
 
 
 class Test(unittest.TestCase):
