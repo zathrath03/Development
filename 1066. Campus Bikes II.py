@@ -22,7 +22,7 @@ All the workers and the bikes locations are unique.
 """
 
 
-from itertools import permutations
+# from itertools import permutations
 import unittest
 
 
