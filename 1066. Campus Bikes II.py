@@ -10,6 +10,15 @@ their assigned bike.
 
 The Manhattan distance between two points p1 and p2 is
 Manhattan(p1, p2) = |p1.x - p2.x| + |p1.y - p2.y|.
+
+Constraints:
+n == workers.length
+m == bikes.length
+1 <= n <= m <= 10
+workers[i].length == 2
+bikes[i].length == 2
+0 <= workers[i][0], workers[i][1], bikes[i][0], bikes[i][1] < 1000
+All the workers and the bikes locations are unique.
 """
 
 
