@@ -32,7 +32,7 @@ class Solution:
                     ) -> int:
         def manhattan(p1, p2):
             return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
-        MAX_DISTANCE = 1000 * len(workers)
+        MAX_DISTANCE = 2000 * len(workers)
 
         # Naive approach
         # For each worker, calculate and store the distance to each bike
