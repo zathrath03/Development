@@ -54,7 +54,8 @@ import unittest
 
 
 class Solution:
-    def assignBikes(self, workers, bikes):
+    def assignBikes(self, workers: list[list[int]], bikes: list[list[int]]
+                    ) -> int:
         MAX_DISTANCE = 2000 * len(workers)
         m, n = len(workers), len(bikes)
         # 0 ~ m - 1  workers
@@ -62,14 +63,26 @@ class Solution:
         s = m + n  # dummy source
         t = s + 1  # dummy sink
         num_nodes = m + n + 2
-        g = [{} for _ in range(num_nodes)]
+        g: list[dict] = [{} for _ in range(num_nodes)]
         prevv: list[int] = [None] * num_nodes  # type: ignore
 
-        def add_edge(from_node: int, to_node: int, cap: int, cost: int
+        def add_edge(from_node: int, to_node: int, cost: int
                      ) -> None:
-            g[from_node][to_node] = [cap, cost]
+            g[from_node][to_node] = [1, cost]
             # reverse edge
             g[to_node][from_node] = [0, -cost]
+
+        def add_all_edges():
+            for i in range(m):
+                for j in range(n):
+                    x1, y1 = workers[i]
+                    x2, y2 = bikes[j]
+                    c = abs(x1 - x2) + abs(y1 - y2)
+                    add_edge(i, m + j, c)
+            for i in range(m):
+                add_edge(s, i, 0)
+            for i in range(n):
+                add_edge(m + i, t, 0)
 
         # find minimum cost to flow f from s to t
         def min_cost_flow(s: int, t: int, f: int) -> int:
@@ -112,16 +125,7 @@ class Solution:
                     v = prevv[v]
             return res
 
-        for i in range(m):
-            for j in range(n):
-                x1, y1 = workers[i]
-                x2, y2 = bikes[j]
-                c = abs(x1 - x2) + abs(y1 - y2)
-                add_edge(i, m + j, 1, c)
-        for i in range(m):
-            add_edge(s, i, 1, 0)
-        for i in range(n):
-            add_edge(m + i, t, 1, 0)
+        add_all_edges()
 
         return min_cost_flow(s, t, m)
 
