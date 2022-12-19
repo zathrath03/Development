@@ -23,7 +23,26 @@ There are no self edges.
 """
 
 
+import unittest
+
+
 class Solution:
     def validPath(self, n: int, edges: list[list[int]], source: int,
                   destination: int) -> bool:
         return False
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        (3, [[0, 1], [1, 2], [2, 0]], 0, 2, True),
+        (6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 0, False)
+    )
+
+    def test_validPath(self):
+        sol = Solution()
+        for n, edges, source, destination, expected in self.test_cases:
+            assert sol.validPath(n, edges, source, destination) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
