@@ -47,10 +47,10 @@ class Solution:
         # Find the minimum total sum by finding every permutaton of distances
         min_sum = MAX_DISTANCE
         for permutation in permutations(range(len(distances))):
-            combinations = []
+            total = 0
             for row, col in zip(distances, permutation):
-                combinations.append(row[col])
-            min_sum = min(min_sum, sum(combinations))
+                total += row[col]
+            min_sum = min(min_sum, total)
         return min_sum
 
 
@@ -60,6 +60,9 @@ class Test(unittest.TestCase):
         ([[0, 0], [1, 1], [2, 0]], [[1, 0], [2, 2], [2, 1]], 4),
         ([[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], [
          [0, 999], [1, 999], [2, 999], [3, 999], [4, 999]], 4995),
+        ([[239, 904], [191, 103], [260, 117], [86, 78], [747, 62]],
+         [[660, 8], [431, 772], [78, 576], [894, 481], [451, 730], [155, 28]],
+         1886),
     )
 
     def test_assignBikes(self):
