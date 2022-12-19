@@ -28,6 +28,14 @@ import unittest
 class Solution:
     def assignBikes(self, workers: list[list[int]], bikes: list[list[int]]
                     ) -> int:
+        def manhattan(p1, p2):
+            return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+
+        # Naive approach
+        # For each worker, calculate and store the distance to each bike
+        # Store each distance in a 2D list
+        # Find the minimum total sum by finding every permutaton of distances
+
         return 0
 
 
