@@ -23,6 +23,7 @@ All the workers and the bikes locations are unique.
 
 
 from itertools import permutations
+from math import inf
 import unittest
 
 
@@ -31,6 +32,7 @@ class Solution:
                     ) -> int:
         def manhattan(p1, p2):
             return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+        MAX_DISTANCE = 1000 * len(workers)
 
         # Naive approach
         # For each worker, calculate and store the distance to each bike
@@ -43,8 +45,13 @@ class Solution:
             distances.append(worker_distances)
 
         # Find the minimum total sum by finding every permutaton of distances
-
-        return 0
+        min_sum = MAX_DISTANCE
+        for permutation in permutations(range(len(distances))):
+            combinations = []
+            for row, col in zip(distances, permutation):
+                combinations.append(row[col])
+            min_sum = min(min_sum, sum(combinations))
+        return min_sum
 
 
 class Test(unittest.TestCase):
