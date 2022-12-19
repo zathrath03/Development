@@ -22,6 +22,7 @@ All the workers and the bikes locations are unique.
 """
 
 
+from itertools import permutations
 import unittest
 
 
@@ -34,6 +35,13 @@ class Solution:
         # Naive approach
         # For each worker, calculate and store the distance to each bike
         # Store each distance in a 2D list
+        distances: list[list[int]] = []
+        for worker in workers:
+            worker_distances: list[int] = []
+            for bike in bikes:
+                worker_distances.append(manhattan(worker, bike))
+            distances.append(worker_distances)
+
         # Find the minimum total sum by finding every permutaton of distances
 
         return 0
