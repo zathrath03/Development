@@ -26,6 +26,18 @@ import unittest
 
 class Solution:
     def canVisitAllRooms(self, rooms: list[list[int]]) -> bool:
+        unvisited_rooms = set(range(1, len(rooms)))
+        keys: set[int] = set((0,))
+
+        while keys:
+            curr = keys.pop()
+            new_keys = {key for key in rooms[curr] if key in unvisited_rooms}
+            for key in new_keys:
+                keys.add(key)
+                unvisited_rooms.discard(key)
+            if not unvisited_rooms:
+                return True
+
         return False
 
 
