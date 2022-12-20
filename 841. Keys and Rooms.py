@@ -26,32 +26,19 @@ import unittest
 
 class Solution:
     def canVisitAllRooms(self, rooms: list[list[int]]) -> bool:
-        unvisited_rooms = 2 ** len(rooms) - 2
+        unvisited_rooms = set(range(1, len(rooms)))
         keys: set[int] = set((0,))
 
         while keys:
-            new_keys = self.get_new_keys(rooms, unvisited_rooms, keys.pop())
-            unvisited_rooms = self.handle_new_keys(
-                unvisited_rooms, keys, new_keys)
+            curr = keys.pop()
+            new_keys = {key for key in rooms[curr] if key in unvisited_rooms}
+            for key in new_keys:
+                keys.add(key)
+                unvisited_rooms.discard(key)
             if not unvisited_rooms:
                 return True
 
         return False
-
-    def handle_new_keys(self, unvisited_rooms, keys, new_keys):
-        for key in new_keys:
-            key_bit = 1 << key
-            keys.add(key)
-            unvisited_rooms = unvisited_rooms & ~key_bit
-        return unvisited_rooms
-
-    def get_new_keys(self, rooms, unvisited_rooms, curr):
-        new_keys = set()
-        for key in rooms[curr]:
-            key_bit = 1 << key
-            if unvisited_rooms & key_bit != 0:
-                new_keys.add(key)
-        return new_keys
 
 
 class Test(unittest.TestCase):
