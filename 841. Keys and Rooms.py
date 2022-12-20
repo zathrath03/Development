@@ -21,6 +21,25 @@ All the values of rooms[i] are unique.
 """
 
 
+import unittest
+
+
 class Solution:
     def canVisitAllRooms(self, rooms: list[list[int]]) -> bool:
         return False
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([[1], [2], [3], []], True),
+        ([[1, 3], [3, 0, 1], [2], [0]], False),
+    )
+
+    def test_canVisitAllRooms(self):
+        sol = Solution()
+        for rooms, expected in self.test_cases:
+            assert sol.canVisitAllRooms(rooms) == expected
+
+
+if __name__ == "__main__":
+    unittest.main()
