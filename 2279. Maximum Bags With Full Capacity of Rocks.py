@@ -25,14 +25,22 @@ class Solution:
         self, capacity: list[int], rocks: list[int], additionalRocks: int
     ) -> int:
         # Determine the remaining capacity in each bag and store it in a list
-        # Sort the remaining capacity list in reverse
+        remaining_capacity = [c - r for c, r in zip(capacity, rocks)]
+        # Sort the remaining capacity list smallest to largest
+        remaining_capacity.sort()
         # While there are additional rocks remaining,
-        # iterate through the remaining capacity
-        # count each zero encountered as full bags
-        # Subtract each remaining capacity from additional rocks
-        # Increment full bags if the remaining capacity reaches zero
+        i = full_bags = 0
+        while additionalRocks > 0 and i < len(remaining_capacity):
+            # iterate through the remaining capacity
+            # Subtract each remaining capacity from additional rocks
+            additionalRocks -= remaining_capacity[i]
+
+            # Increment full bags if the remaining capacity reaches zero
+            if additionalRocks >= 0:
+                full_bags += 1
+            i += 1
         # return full bags
-        return 0
+        return full_bags
 
 
 class Test(unittest.TestCase):
