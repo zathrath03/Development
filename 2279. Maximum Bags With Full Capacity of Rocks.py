@@ -24,8 +24,10 @@ class Solution:
     def maximumBags(
         self, capacity: list[int], rocks: list[int], additionalRocks: int
     ) -> int:
-        remaining_capacity = [c - r for c, r in zip(capacity, rocks)]
-        remaining_capacity.sort()
+        remaining_capacity = self.get_remaining_capacity(capacity, rocks)
+        return self.count_full_bags(additionalRocks, remaining_capacity)
+
+    def count_full_bags(self, additionalRocks, remaining_capacity):
         i = full_bags = 0
         while additionalRocks > 0 and i < len(remaining_capacity):
             additionalRocks -= remaining_capacity[i]
@@ -33,6 +35,11 @@ class Solution:
                 full_bags += 1
             i += 1
         return full_bags
+
+    def get_remaining_capacity(self, capacity, rocks):
+        remaining_capacity = [c - r for c, r in zip(capacity, rocks)]
+        remaining_capacity.sort()
+        return remaining_capacity
 
 
 class Test(unittest.TestCase):
