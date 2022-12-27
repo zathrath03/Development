@@ -17,8 +17,29 @@ n == capacity.length == rocks.length
 """
 
 
+import unittest
+
+
 class Solution:
     def maximumBags(
         self, capacity: list[int], rocks: list[int], additionalRocks: int
     ) -> int:
         return 0
+
+
+class Test(unittest.TestCase):
+    test_cases = (
+        ([2, 3, 4, 5], [1, 2, 4, 4], 2, 3),
+        ([10, 2, 2], [2, 2, 0], 100, 3),
+    )
+
+    def test_maximumBags(self) -> None:
+        sol = Solution()
+        for capacity, rocks, additionalRocks, expected in self.test_cases:
+            assert (
+                sol.maximumBags(capacity, rocks, additionalRocks) == expected
+            )
+
+
+if __name__ == "__main__":
+    unittest.main()
