@@ -24,6 +24,14 @@ class Solution:
     def maximumBags(
         self, capacity: list[int], rocks: list[int], additionalRocks: int
     ) -> int:
+        # Determine the remaining capacity in each bag and store it in a list
+        # Sort the remaining capacity list in reverse
+        # While there are additional rocks remaining,
+        # iterate through the remaining capacity
+        # count each zero encountered as full bags
+        # Subtract each remaining capacity from additional rocks
+        # Increment full bags if the remaining capacity reaches zero
+        # return full bags
         return 0
 
 
